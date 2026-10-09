@@ -1,0 +1,2 @@
+import {chromium} from 'playwright';
+const b=await chromium.launch({headless:true,channel:'chrome'});const p=await b.newPage({viewport:{width:1280,height:720}});p.on('pageerror',e=>console.log('ERROR',e.message));await p.goto('http://127.0.0.1:8818');await p.waitForFunction(()=>window.twin?.ready,{timeout:120000});await p.waitForTimeout(2000);console.log(await p.evaluate(()=>twin.state()));await p.screenshot({path:'/path/to/local-assets'});await b.close();

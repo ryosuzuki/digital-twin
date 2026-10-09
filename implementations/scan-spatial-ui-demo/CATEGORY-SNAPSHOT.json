@@ -1,0 +1,75 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/scan-spatial-ui-demo",
+  "sourceCommit": "e2267b1bb641252d46690e8b40694e1a9983fbae",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "3cbd7ec47c71a579f9677fa7e3f60f6129a417cd9463ad40b7b158ffd2189f3b",
+      "sourceGitBlob": "b54aeabc8b8c29668560d96c86802862babae11e",
+      "sanitized": true
+    },
+    {
+      "path": "GITHUB-BACKUP.md",
+      "sha256": "f92d3117e676e3a3aa01ac2f457280a82740d7335e80908730a73262ba5b4bc4",
+      "sourceGitBlob": "96f13123f699f37702ddf3a1ab3971c260b8a27f",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "bff041541b1ca800c5f01313850d6116f8f904cc3d09551e194daaedc696862d",
+      "sourceGitBlob": "75f06f72ea7fdce0ab7558cee5a68ca5eb004e7d",
+      "sanitized": true
+    },
+    {
+      "path": "app.js",
+      "sha256": "33335fe15ee946727ce4c2ce577730637fe53e407f697f491c8cfe642c27c626",
+      "sourceGitBlob": "cc81fc4b47aadf080bbd7c42f984716e4fe899d1",
+      "sanitized": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "62c3fdf7a7a661d13f2cae099cf4e22b70ca1e12caa440b737571ca027856e04",
+      "sourceGitBlob": "56e22cd3c1f736f3ff7c66abc829991fa6117aa4",
+      "sanitized": true
+    },
+    {
+      "path": "launch.command",
+      "sha256": "f27e0c3e373405f2ebf8d8b708eff3b01ff584dafc1d7c86e44d540ba00571eb",
+      "sourceGitBlob": "a623a6db4a3e0c95a26258740c5c905ca5e62f60",
+      "sanitized": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b7923a9c800e51e9e3c415edf38c69ae20d49dc6b409c20d5d04dd4c64a0b0d2",
+      "sourceGitBlob": "a1b309e62d039fa33501505abfe6c33d86f24d6c",
+      "sanitized": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "ec9d04b2a92a2f86fff5ce20eeda94f75ec20aa0ee2a627d33b4d6271c776b43",
+      "sourceGitBlob": "559a1c0013e2fda3306a6339483d8185de89562b",
+      "sanitized": true
+    },
+    {
+      "path": "record.mjs",
+      "sha256": "cb8ef8f963fbdcc31ce729756b0444ae03d7ee38cb1fe4b472c521dec8cb8158",
+      "sourceGitBlob": "02f134135f5ca40edb8d52cf5df9212b9f27f58b",
+      "sanitized": true
+    },
+    {
+      "path": "server.mjs",
+      "sha256": "bb7c5aa3f72b2f9fdf4484de3440469c41dc0ec1824e78454ffe03cd25f7e5cf",
+      "sourceGitBlob": "a7637603a363cd563ca1739b566f08cb2d42a51e",
+      "sanitized": true
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "2fb05477df75033e3faac5fc8a456bd1d2254c197fdac6dad3435c2dfbd6fea2",
+      "sourceGitBlob": "6fcc81957f3b45644e0b8c406f31d195330592e8",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

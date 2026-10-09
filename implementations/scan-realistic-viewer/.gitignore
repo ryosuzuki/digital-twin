@@ -1,0 +1,5 @@
+node_modules/
+dist/
+public/room.spz
+
+.DS_Store

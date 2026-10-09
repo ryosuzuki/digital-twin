@@ -1,0 +1,699 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/spatial-memory-private-backup",
+  "sourceCommit": "6c28037346a9d45097652bc13cea67b4fc3eb729",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "a1b6d5734e83576462488775c08a3a07c1d02629733334cbc19c292008047918",
+      "sourceGitBlob": "cdf40a914156cf600767f6a9eb8e81b9430c26c1",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "c920f405734ad8139a6768fabc6b2713e3249eff43412f51b49b41dcebe8e4dc",
+      "sourceGitBlob": "7ae21938682eb6350d2d6ae72c16cac5021773e8",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/.gitignore",
+      "sha256": "92895169cdd01a6f5a79edc62d29ab7015015951be5fd00e859dd7be7ab1bd20",
+      "sourceGitBlob": "15844ac0796e41f94c9c1458892e3f220869ee13",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/README.md",
+      "sha256": "6f69a88a8ac03fa332743e896a8f0259f9679cbd5ec260dda7eda17562df5452",
+      "sourceGitBlob": "f3abc835ef3b4ed7e336eebb9275e396809afa82",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/START.command",
+      "sha256": "808f21f6fe3c9dfd2f76b062c557582e1691483a5a851c80d0dfdb9ac7de1cdb",
+      "sourceGitBlob": "cd8ec3d535a263513f6140198a0f1810f8b75ab0",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/DEVELOPMENT.md",
+      "sha256": "4ed3c6fc0319637fe1ad3ee38861c00832b425d251f68e32f093afade3f2f916",
+      "sourceGitBlob": "a96108ac1e31aea0f9cea2ccf19696385feb53c3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/QUICKSTART.md",
+      "sha256": "3e3110ed04f2d3682a38bff239f2fc853755615f821d4d00d5909106821d99e3",
+      "sourceGitBlob": "5906f0db312cf4e93d7309050ed02f2e82ae3fa0",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/RECORDING.md",
+      "sha256": "4d856a9bada341d3d7137fa9f2753fea4579a8298dfc62633d180a9583c9e651",
+      "sourceGitBlob": "8d672ae28f6965d80f07b6bfa28c560e7a3f9dc8",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/STATUS.md",
+      "sha256": "b8241f990b9045ef20e0cea66807b3949274aee8ce06282cf7c472b21f86a423",
+      "sourceGitBlob": "ac5e4cdb32f368b32591d032a6e639b23d374714",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/editor-interaction-demo.md",
+      "sha256": "94430950c143ea2d4f089df7111d5e1263a7134870feee4b4e804c9f53d2579e",
+      "sourceGitBlob": "6d582664152f555a047472c726e0133516e5bac3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/figures/README.md",
+      "sha256": "916e138dc3303264796debb97497a0532159ef12060ff283d127d96af4edb525",
+      "sourceGitBlob": "2548dc8411991ef2ca60dad37a30d0d3898853a3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/docs/new-take-demo.md",
+      "sha256": "648aea71d8d2071b9e534688fa9bd85997056d953d70e775ff1798f08e866ce8",
+      "sourceGitBlob": "f988a93342535d2fcdfed294bf22b62d87820589",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/design.md",
+      "sha256": "29c557c7ddcbc3b1c7a98f1e36bd6ce16737ee42c6decde6d85abf463636165f",
+      "sourceGitBlob": "32826a94b2ca0bd34abc8a9eaa905501b33e1d62",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/embedded-fifty.md",
+      "sha256": "709a67ce714a33797e27ff1a2f68b81214d6cbb9492fb369e62b0f1fea196795",
+      "sourceGitBlob": "30af189b0cd5d5ad9b788ffe62f1133ef3a376f2",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/embedded-objects.md",
+      "sha256": "ad20edb2ba66af4ac440d14014acf52627ff0bfaee001f1b05450ab2277e96eb",
+      "sourceGitBlob": "0376b3c3c92a916383dd99215c91bb656718b49f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/full-take-fifty.md",
+      "sha256": "878482361c572981a68f69fcba1b5829e8dfa3e1d62f42ed42fe009702357dcf",
+      "sourceGitBlob": "f43bda661c3bed6aa532ca3bc3bfa4e2eb7da051",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/living-scenarios.md",
+      "sha256": "12e0087e5ce79e7f898d37bc26c7af1f06f1f962409116bd3a6d869822c512fd",
+      "sourceGitBlob": "01544079963b1191a2f74831807755c93ee6bb97",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/new-take-demo.md",
+      "sha256": "f66c2c3871ee4af2dc7f01ae87a227d8fcd40503800a7211004da9241e7bced0",
+      "sourceGitBlob": "b59a36b75aef1f79d3aa7d0f4c3d5d4feeba22ad",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/object-memory.md",
+      "sha256": "a5cd7e9424c523d45498d1321a32cd780920b875474997691d6c36506adddd0e",
+      "sourceGitBlob": "446a5f93a5263465cb6cda41e272422f3e9a1bf9",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/object-room.md",
+      "sha256": "867b11974a509a4c88da9cefdda29b60c22d26793403a31895469b15b9a92883",
+      "sourceGitBlob": "16ee0dec6bf09c5b362bebd1a085a507d8228029",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/object-stream.md",
+      "sha256": "e8af0c7aaa8a386d8b4f36cb2196914eb5e2027216e7979cc609021bee23eb8f",
+      "sourceGitBlob": "b81e884618ce619c9675a9b0ec27576109b3ad08",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/object-tracked.md",
+      "sha256": "7caf6f678c97ecb35aa49247750dbef50fa0fe620c37f9f3cb32e0833bd8fe5c",
+      "sourceGitBlob": "07ce5a6fabcf4ac32a27c0d5ec9c56ad729b2461",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/docs/surface-text.md",
+      "sha256": "bf7cbad4f8c8a1030b3bd3ab8ad8b4311a7473595a5fd2cc9134012f57a58ad2",
+      "sourceGitBlob": "533bfbc320fb975a8cea07f048aa48d54215aa19",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/embedded-fifty.html",
+      "sha256": "9f5f55c20ff4aae69baedc9da3a17464728e7814e7fec654af782b35e771ec19",
+      "sourceGitBlob": "fdc0a754e6af48c4680ced45bc74411be09cb07a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/embedded.html",
+      "sha256": "51715154904f3c1d6f8c6af2de0f6d6c652df080cb8a295787024e09ddfff9dc",
+      "sourceGitBlob": "ff7dacedb600a3fd79f3b49b7d8df160f25f25b3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/full-take.html",
+      "sha256": "09284660f9d0f2fe47db251afc4267959b8692c508d33b31d444639d4cb103fe",
+      "sourceGitBlob": "a80bcc98cda3ff1d36cb2e0524d966185741bede",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/index.html",
+      "sha256": "5108fe5a45b31f570de56954f006996eb00683b6632b7e891492165da96442cb",
+      "sourceGitBlob": "bd24ffbe474fc56e8814690a85a0a1a8b17e9573",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/living-scenarios.html",
+      "sha256": "17984741d09b7b1838974729e2e5edca01d9aa171fae56604ab723bb922f4440",
+      "sourceGitBlob": "832e7b138ab5294ffd4ce9a2d3d8fe5e8890e117",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/new-take.html",
+      "sha256": "d6c747af92b523e39c2149e9c801d91628e36f8dbe0a73cdc0f3c03ed7244dc1",
+      "sourceGitBlob": "718da6b7a929eaf0d1bf63dac879af32c6f89185",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/object-memory.html",
+      "sha256": "6165608723fc8070bde57190a609b29e487f6dee299466051d50e9ec40e90227",
+      "sourceGitBlob": "a6dfb4a226bb694f013b8fc9fc687431ceb72898",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/object-room.html",
+      "sha256": "5311ccaf62b3d5855a8889bb97aab45eab5c0cf7b5966f5b41367e0218ac2f8b",
+      "sourceGitBlob": "422912427ce5e95d95dba04d29a98eb100753bd6",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/object-stream.html",
+      "sha256": "71b81a8270858ac57366dc060bfdd896ce7bd1566731b20e72ce116ec8af4bb7",
+      "sourceGitBlob": "e86d46473b0a2686609d0d13b42e87d773cb59e2",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/object-tracked.html",
+      "sha256": "b5d542462a77395f07df78ec9f559296482adde0128b962c056cbffa7430b71d",
+      "sourceGitBlob": "64fa55840921645f03a86abf2471e3645d1b3ac4",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/package-lock.json",
+      "sha256": "c1725f99e3e3ca87611e5411d0cf60305d6644504518fd057b7a730021cff4dd",
+      "sourceGitBlob": "4dfc843e8e7ff6efd9550f5c2f7a8276100abe1b",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/package.json",
+      "sha256": "293d3996814cce5aa829b952d81c07db51e4644ed24a520a9b27f931078d77fb",
+      "sourceGitBlob": "a0e39a02e337af5ec7072b9a8938a03d33a4fd1f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/requirements.txt",
+      "sha256": "ef5e68d11c7e52a1e14dfda9346968a9ec76ace147129e7d559bc851ef821000",
+      "sourceGitBlob": "2dea8cd3c69f8c9e1b318382aaa619ad426318c2",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/room.html",
+      "sha256": "244e34064c7928368372319cffaf7228247eb0dcc587567b8e8cb7dabdfb214e",
+      "sourceGitBlob": "2cb73791903c3422d7044fbe17dd0e52ab76349a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/align-object-room.py",
+      "sha256": "1141a53d415980cbe258e74d352e5b002706239f230e61a5e3ec0a887e04bc54",
+      "sourceGitBlob": "04ee938e7ab099a3bf54be0261e99b6e9fe78a0a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/capture-editor-interaction.mjs",
+      "sha256": "50a9e36dc774ee1664b458b5e965b29da297acef62b0c4ed95ed9286d8d65166",
+      "sourceGitBlob": "a86c5dd57cce60f75d385110fd9a6606669af18e",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/check-embedded-fifty-gallery.mjs",
+      "sha256": "7cab50f58c1a0b281cddb9122cd566219d2fd56bae7f236cd2a848dd284a8885",
+      "sourceGitBlob": "ea3f2263f5bd2cc58ae1fbb821164cfb3328cb1a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/check-full-take.mjs",
+      "sha256": "990eaa42a0881cc1a68857689abea8e1920cf213d5307bacdf414a111b085ab8",
+      "sourceGitBlob": "8c82a846fc710c820cb425ff4243694f935bf327",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/check-object-room.mjs",
+      "sha256": "855075d158aa79c9f65a1f8c17d131a4d377e2b95b9cf346660b3d7e788695eb",
+      "sourceGitBlob": "f93d55bf34a90c86c6936d6902e923c33f38a0dd",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/check-surface-text.mjs",
+      "sha256": "c9d9f96d107ba0f232d03b83d1aaf14defd0b855e10684a7ad2bbdad6564ef71",
+      "sourceGitBlob": "e0db4b80d7248a5e32a2e7b22a682167af734e66",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/demo.py",
+      "sha256": "3352c5e5ec4d2d5d7eb2d9f05430d5fec9ee2fb2ba5749d33d64f7c9327ffbb5",
+      "sourceGitBlob": "313a8ce17c3924c392bccf4674fc978b07decc11",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/derive-bottle-world.py",
+      "sha256": "092734bb1b1b10aeab15ee8aab5a6e0e0e81e5cd55beccd8737604e1041dad94",
+      "sourceGitBlob": "6ad3052b49090521f2ae99f99f7272d0243872c5",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/derive-recorded-tracks.py",
+      "sha256": "28028e869e6783981281b2b9f1fb8e2269b61efe819fab77e3fcb025ed54dae3",
+      "sourceGitBlob": "5468896d75921dbaa29ae3090fbbc27420316346",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/detect-object-memory.py",
+      "sha256": "28461b38bf81bc99ceb96cfe627a58a7ca26cc735f72f8b3e2770c9f0f92deaa",
+      "sourceGitBlob": "6b05159531454dc206a601b3198916fc3f68924d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/editor-room-display-smoke.mjs",
+      "sha256": "3fcfa741c9e78efa912944516b55b7186c3332e99243339b8e21a8b84f961469",
+      "sourceGitBlob": "39476b4727f6a49b12de0860abd87aefbdf0d73f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/export.mjs",
+      "sha256": "ca43b0a04f9f48573c95e0b750c9ddcb91bcaa23d6a48f2fc0e72940452562d3",
+      "sourceGitBlob": "62dd2cadc58630707ddb615bae71bf0f99e2b35d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/import_mruk.py",
+      "sha256": "07eebfae2bd194dbec7f2f55b7144b208a2bcddcde164d779a574b8e40fd690b",
+      "sourceGitBlob": "2259ff5af6f6b5af5e1dc84733ed782449ec1e8f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/import_video.py",
+      "sha256": "498ca3025920cecfd21a8bbebf7933e11a1fdcc17b0beda3c8e97388cdedbb11",
+      "sourceGitBlob": "923b49a13ad7143f4a20647e7c0fff6bdf3443b3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/package-embedded-fifty.py",
+      "sha256": "c3319db7f1844af081a3289599bb13100c8ab4b5a02c54a5b189054dbfd42597",
+      "sourceGitBlob": "cc878c4c731181df55ec93234b85aebdf9e5da53",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/package-full-take.py",
+      "sha256": "9588c6cec59e3f6da10b5c08a76cc2b89f528049fd77917f45dada99f31959ad",
+      "sourceGitBlob": "1e77796bb2392bc119ad9f6b26d989f3d03e1671",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/prepare-embedded.py",
+      "sha256": "987b07dbd8c5baa703b34ee74504f8ae54ea150135f0a691a180a294253d8f42",
+      "sourceGitBlob": "80614a6883e5c4d2d78fc288cf2ab0c6b21cb337",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/quest.py",
+      "sha256": "30e3c9b2bb9f50b076936abe915650b391e177b7116d61bfe74365846bf76dd0",
+      "sourceGitBlob": "96f2c2e1555bda5ae4f08ceaf34033b36c9611cd",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/reel-embedded-fifty.py",
+      "sha256": "d6596f5d2d91d98869e93daa74eb521f7bab5153f7f721bcc29da132616c900b",
+      "sourceGitBlob": "5fca184414a69f42153a05ddf173af7cc9ef59b5",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/refine-room-objects.py",
+      "sha256": "4e2b28fc57d137be647492675bee8dfaa03af4f839227cd152b09032e1548c4f",
+      "sourceGitBlob": "c463467dff0b34a57f4f63e3cb923ed918ea9266",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-embedded-fifty.mjs",
+      "sha256": "745e8ed59d146a55717734d64384dadef394ca9e705f0e2cf38074191f224d50",
+      "sourceGitBlob": "f3acaa1e125b21c97e597be8e30604493c06bd53",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-full-take.mjs",
+      "sha256": "9103308a0a38b40afffd50d12f54852f2005c85aeb7b05a0e3f6c22ca62cadfe",
+      "sourceGitBlob": "59c02ebe998e31fe51a0eef28918fd9331019a18",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-living-scenarios.mjs",
+      "sha256": "aea16337e9ecf766e1c115a4403b66bf745e40af7d69409bd3c8c555bbd1e3be",
+      "sourceGitBlob": "052efd95f5e7c30ab33c19cd809467c1cddcf298",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-new-take.mjs",
+      "sha256": "69332aa413cab115c0dd91d49e981031e3d97a0f77048a279f03c9b8cf6b6761",
+      "sourceGitBlob": "1f8d17b8cdd1761b8a0c931cb601f9c7e2c0f082",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-object-memory.mjs",
+      "sha256": "833723054fc52772f688f13e3a1697907ec9965eadeb392f6317ce0554d44c4d",
+      "sourceGitBlob": "af2ce7392f50c22511c9cfe474bbaebf92da2339",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-object-room.mjs",
+      "sha256": "21f4aa186c77d1a5e81e90617d0a269375d33b08537ec13addd2be426645e0b5",
+      "sourceGitBlob": "cb7a9f4bbb463d77c130460d7ae6fb73f080e7e7",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-object-stream.mjs",
+      "sha256": "07bcfb317913ad159ee947c74d750273b9ca790df2707287604ec5546ea60b0a",
+      "sourceGitBlob": "345306b60501f83b97d285b82017fdf76c700bb3",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-object-tracked.mjs",
+      "sha256": "46a0bfe276d3e281ad6d669b93d4507aeb62747df8b89da0dfe79463e3ef702e",
+      "sourceGitBlob": "d01b5cd26cbf3229a67c8afc2734c17e1aabb6a6",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/render-surface-text.mjs",
+      "sha256": "48dfefd55ab161a93e17f4f764459bad44dd3051a272e5124d7f7d7f19f31344",
+      "sourceGitBlob": "cf84df974fb1018ecbbaaebc918d5825120dcdbc",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/reprojection.py",
+      "sha256": "41a8496e321a3cfa812f8f3633228be158843a447dd21d6cddaa8dd42119b86e",
+      "sourceGitBlob": "02a0f4e045310e6f816a22bca775b54b0b354a3d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/requirements-recorded-tracks.txt",
+      "sha256": "8d11b36b25159136e5cace4582bdc1bb7ed1039f0336139b115e6e1319eaee64",
+      "sourceGitBlob": "e99d678f691e61d3954b054545234534693e238d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/serve-living-scenarios.mjs",
+      "sha256": "a7aea8ab50c87d026df51862afc5aa26f7024131c3de668da399344cbca7bb31",
+      "sourceGitBlob": "aaf97a5b56a8a02a9520803a6c8cc2be945ed499",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/serve-object-room.mjs",
+      "sha256": "cd520a82383b17029a7c68d69ab32165c601a79d111080050e4f40783f036d2c",
+      "sourceGitBlob": "d0dc087fa8b87d6f2c9a28d1e9a644c6cd4d3023",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/slack-embedded-fifty.py",
+      "sha256": "0d7903f884fff07962eec6468a48f76477debc0987573d0c92f6ba9a93d8c1c8",
+      "sourceGitBlob": "a1d7a93b6b378f8634706fa17c44f80ee621dea8",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/smoke.mjs",
+      "sha256": "451a06a2433b59ec9d896f0e84ffb972c853efbdf23a6e7d8aab4195668c0fdf",
+      "sourceGitBlob": "16254c9933240c660aa81e59c64328ac21c317eb",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/spatialize-object-memory.py",
+      "sha256": "6968b1348284939c73c4b80f178c6acb7203b37ebbcdf9c88c863255b105176f",
+      "sourceGitBlob": "010c30ec48657c0737dfd53b58745561038923f8",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/scripts/twin-smoke.mjs",
+      "sha256": "8378a905ae370d2c6abf3e435453632811c3a347d68930b005a99b055ffb6adf",
+      "sourceGitBlob": "255ebb07f9b0203401f3034c91cf6f4094885d46",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/app.mjs",
+      "sha256": "78ebe48f8b584ddcf692f7dcc93451ab8b6b8ba08a70a4d0f5d781ead1c6ee87",
+      "sourceGitBlob": "f469b4e0a246c86e99afdd779ce7f54b76e0d271",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/embedded-fifty-art.mjs",
+      "sha256": "6ca768c1f47d6984b4f793e7c0c4bab33a2026182ab8f67160ba7c82709e4cfc",
+      "sourceGitBlob": "7e12eb9311d72ce75a284af05e2e10fe69547850",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/embedded-fifty-catalog.mjs",
+      "sha256": "a6f80fc99ac486ec11a399fef53736940af8180ded71da4de058e73387155b30",
+      "sourceGitBlob": "3ba2f98aa0ad389bb6a8adc4b1736482b884a770",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/embedded-fifty.mjs",
+      "sha256": "41ee2e6de8f860cea23f50a45937564a6e2de616dd3e77beb6fb0fd7e03200cf",
+      "sourceGitBlob": "7ea7b4e75eb40571292512c473bdacfe3c7ee20c",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/embedded-math.mjs",
+      "sha256": "ffa921b6617a2a5511a225273e253b360676eed618910d45cadcce65f875cefb",
+      "sourceGitBlob": "a84582449e435c33b42a34ae9e7494a48eb1fce6",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/embedded.mjs",
+      "sha256": "494b4d6104f2f77c102a3af2d7ddc83dc33c0e3f776b028d2f991183b814d4e1",
+      "sourceGitBlob": "1c4e4e11169939c0c2f1d692b48e05c6408d20ab",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/full-take-art.mjs",
+      "sha256": "87984d57f59c17c808fc1571f9e205d81b6e23c9e7f730a7a0b83cedf9208610",
+      "sourceGitBlob": "cb9551a5c714d79c944718d3167ab504dae3388d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/full-take-catalog.mjs",
+      "sha256": "8f28b7cf53701c118c88d53fff978bf1d0af8bf3b33e756370a22aa312f0b814",
+      "sourceGitBlob": "da67985d4c64e0d1e7c17e112b488b97bfc22d1a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/full-take.mjs",
+      "sha256": "bebd10f7cd137b0028439ff41e68605a310c0942c6e7c6a0fd9955335b7d9f10",
+      "sourceGitBlob": "5eff524e8d5c8bae7c51323726692fda59c28b81",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/living-models.mjs",
+      "sha256": "3044fe579a7bdeb5b9a45c18731b7d1d19db2947878f23396af0dca2c331a8f5",
+      "sourceGitBlob": "9a2ab1a48369c091c9b118280c66710a0f416685",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/living-scenarios.mjs",
+      "sha256": "3a9ad395cd046ce8fddf47f18cdcc22705ce5ad69a52116b3be1328cacf27a6a",
+      "sourceGitBlob": "9c00b61be479984762d6e3dbea4d0d70c13727a9",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/math.mjs",
+      "sha256": "a96ea75ffeb82e164a7a4c816388552b63ec7c79541e6966c9b411b1eaf5eca6",
+      "sourceGitBlob": "71c31af9b0daa1c4dc6d2005fa19a2752e7dd524",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/new-take.mjs",
+      "sha256": "7d4bc037759cacded5d1c4458a82c09558757bcff38989ba6b92ad158ff5e568",
+      "sourceGitBlob": "cdcb89d3d9c9ded92893f60f49517ad3d8812d81",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/object-memory.mjs",
+      "sha256": "c459efae33e36aa20cd0673df4ab662ea23573092bbbcbcc52cd5da417de8d11",
+      "sourceGitBlob": "16e20afaee909420e5ac494f90219e56609aeec5",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/object-room.mjs",
+      "sha256": "1a054818ee11eb95c8bf15bee12cde857072a8bca7bd838e9f0850daa812924a",
+      "sourceGitBlob": "a12c13dd4c414eebd3f6259abae616bc7de7426a",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/object-stream-base.mjs",
+      "sha256": "13d2507dfc416fa7446c4bd06090e00b2dbd7f6b0a73cec2631aeee1b08266d4",
+      "sourceGitBlob": "de670108caae86ca8017afe75735245633d56d9d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/object-stream.mjs",
+      "sha256": "c03b4ac52d210fc9c33788021a73ee64eb77171b8ca011999e560fa658c54057",
+      "sourceGitBlob": "3d5b3df6fcbd4ad4e1e3c93ca22c2198064c267d",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/object-tracked.mjs",
+      "sha256": "8f6dc2ec8a79129f4df2a17fd8ab3eee84ebc837c7d1819b099012486b1d321b",
+      "sourceGitBlob": "6e7a2e1db513465594855a32a0488726265bbc96",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/room.mjs",
+      "sha256": "5d389f798f36c7dd3d4a80656cde47db47788efc204207a3cb9a1f0f2a360bcc",
+      "sourceGitBlob": "8e6a1967256aab4e6eda3f0928fe35f56176f4f5",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/spatial-audio.mjs",
+      "sha256": "0a23ec4d52d007de12a155ac142c182a357cc5454e83d0dc3bb7ea1d06c3febd",
+      "sourceGitBlob": "437772ab794a13d9ac936b2ef5adea79ece1beb7",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/surface-text.mjs",
+      "sha256": "528fa3ccded12fdde57a8f59a816ae1ad5b693d1fa6d79881ff629ee3500c841",
+      "sourceGitBlob": "b4781d6567ecedfeeebcc78ad1ac5bfc2edb2ce0",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/src/twin.mjs",
+      "sha256": "528c6d103066f8137c2232e0b43912977967aa37fe743cde74da599156c33f37",
+      "sourceGitBlob": "32878c55e0112684c831eb9fe4aa9d43b7f3801f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/surface-text.html",
+      "sha256": "f24f8d873679d95c50fc2255a20729c0e23e5c1b9acee765c2c4b996c9effce2",
+      "sourceGitBlob": "e2192357e83c4293dab8838a3506f2b0f8410a24",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/embedded-fifty.test.mjs",
+      "sha256": "9166734cd068a8dbf41e388fbb07a10cf4f27753dddeb37b306b658f06f6c8d1",
+      "sourceGitBlob": "d39962b5c48b15e838f364561cc84b8f505eb54f",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/embedded.test.mjs",
+      "sha256": "4bb711c808c738c93432d4951c31fe04d6b6ec1e600ef12c91e9a56fe2195bd9",
+      "sourceGitBlob": "9f7d776945439cfcf9dc04225d9f37a60a49d2ad",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/full-take.test.mjs",
+      "sha256": "a1d6ffea9b23524753f1793521212091a8bab20c705a31edf9f49023fe615795",
+      "sourceGitBlob": "df17f70d1276b96d612179571e04f70f14cdc2a8",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/math.test.mjs",
+      "sha256": "a04c2a5218c1d449ab4f17bfa0b6c0ce6f7d68557daef33449778118f5821ec4",
+      "sourceGitBlob": "7db5b5eae5d33ef7a62cdd8229fbe28f6f725c20",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/spatial-audio.test.mjs",
+      "sha256": "b1f01d90838d96d7bd7c6333598f771ad09ff91f7c27a4b2ad9106e6751b5448",
+      "sourceGitBlob": "8f8d4e9e19600963e4a5a987dc89355b34b51995",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/test_import.py",
+      "sha256": "4bcf57d1ad13408f279eb803af882bdc0bf531253e93772b49abe75797312c71",
+      "sourceGitBlob": "58d8ddc52dfdabccfc9630d0817810815f907164",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/test_quest.py",
+      "sha256": "3a2744f85240a0ee1dac7e1e18d1aff230ef9537212614e35af46fb5ff50cb07",
+      "sourceGitBlob": "e8f67d4d583d84ca81ab3b6a0f152144a44d4fb9",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/editor/tests/test_video.py",
+      "sha256": "3a8ba3c0d6e4646e825112ce1047de3d16063ef62cff365147f94ad5192a671a",
+      "sourceGitBlob": "afffa3ee0fc758847186febb05b4cc91b19e7cb9",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/scripts/install.sh",
+      "sha256": "c6c357c2643fdbe1dd38bada95af5009e93094802b42fe41d806a4b65622a56b",
+      "sourceGitBlob": "24729227a783deb78fb27c0e6c90d8c31c889929",
+      "sanitized": true
+    },
+    {
+      "path": "quest-spatial-studio/scripts/pull.sh",
+      "sha256": "cd2021f1ed1754f22f92e192360e9673f660396b83134fc4d01cb9014486736e",
+      "sourceGitBlob": "d41d79b92bd224eba225cf8eafa67fb633565df2",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/README.md",
+      "sha256": "3abe0fca7147a3b269eb0a2ac5f9dbaf4406374e6f9114df9842b7bf2359e67d",
+      "sourceGitBlob": "b78c55e0931c3e50d9a5d2294217cc279d342a3e",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/app.js",
+      "sha256": "252a1f1342ee647cc1d316ab0202a3280c6cb31ef37ac5cb4c7a6bbcd42c1194",
+      "sourceGitBlob": "55df58af2d0de2c4df8710c4ba955284d6168560",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/index.html",
+      "sha256": "aba8d92e988d38a77cb89ddf2a80e5fc4edac043f54c435a0da6fa0f23cbda0b",
+      "sourceGitBlob": "2527cd3db0bbf48c47cb02a7d8dab8cb647859a0",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/launch.command",
+      "sha256": "f3b2394fd2636113d53eef70328b330dffe952cfc0987c93d447b2b7425ec048",
+      "sourceGitBlob": "b04be5074f1d38265d77237992b7bcea2cf6f68f",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/package-lock.json",
+      "sha256": "8e08784055912181f878f840c8357c5a39b16277a61bd6a06586612f65345e1f",
+      "sourceGitBlob": "09cc481d3de6a7129d94e951d384e5bef2042368",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/package.json",
+      "sha256": "ec9d04b2a92a2f86fff5ce20eeda94f75ec20aa0ee2a627d33b4d6271c776b43",
+      "sourceGitBlob": "559a1c0013e2fda3306a6339483d8185de89562b",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/record.mjs",
+      "sha256": "369cabd77adc406b86bac21b5dc3a21d58ffff2be5dc687122c9e02e5b6c1049",
+      "sourceGitBlob": "18722cd7da6c3fc0b0f596e3f346c48218b8a882",
+      "sanitized": true
+    },
+    {
+      "path": "spatial-object-memory/server.mjs",
+      "sha256": "da70b6249d598dac83245c68c046166183bf700534ca7d96280f5178051f8da7",
+      "sourceGitBlob": "08803a428bacbef1679a1979cabce6f3302b4471",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

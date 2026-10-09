@@ -1,0 +1,20 @@
+{
+  "name": "scan-realistic-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite --host 127.0.0.1 --port 8816",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sparkjsdev/spark": "^2.3.1",
+    "playwright": "^1.64.0",
+    "three": "^0.186.1",
+    "vite": "^8.3.4"
+  }
+}

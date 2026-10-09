@@ -1,0 +1,33 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/scan-quality-experiment",
+  "sourceCommit": "9fdb0b70a85a1f8e2fb30da145fa1deac14d7def",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "5c84198433390d027ac245688ebd34c3f923b6d12f1900e745147d5d64bbf116",
+      "sourceGitBlob": "b12834d9011b08ebe4882109a46d769fbddf03f1",
+      "sanitized": true
+    },
+    {
+      "path": "GITHUB-BACKUP.md",
+      "sha256": "f92d3117e676e3a3aa01ac2f457280a82740d7335e80908730a73262ba5b4bc4",
+      "sourceGitBlob": "96f13123f699f37702ddf3a1ab3971c260b8a27f",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "f9b10117c2b4bbfe199b96bc50a1454b950e845fb27bc8d19ec782110bb8e665",
+      "sourceGitBlob": "f4d2d41dc0bd5794ebb229b4657ce4bc41d743f0",
+      "sanitized": true
+    },
+    {
+      "path": "fuse_compare.py",
+      "sha256": "b7ee3676ce421d1f296a5004cae44ed68ba417526e64cab7ce8d94e3bc386022",
+      "sourceGitBlob": "16f56820493930d05cfab8199afcee34fe22326d",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

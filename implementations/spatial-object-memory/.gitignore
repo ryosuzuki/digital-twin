@@ -1,0 +1,8 @@
+node_modules/
+private/
+sessions/
+scan/
+output/
+.DS_Store
+*.pyc
+__pycache__/

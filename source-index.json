@@ -1,0 +1,51 @@
+[
+  {
+    "name": "scan-realistic-viewer",
+    "folder": "implementations/scan-realistic-viewer",
+    "commit": "daa780910ba6baedab32da94a1615b68a3a8cd55",
+    "files": 12,
+    "sourceOnly": true
+  },
+  {
+    "name": "scan-spatial-ui-demo",
+    "folder": "implementations/scan-spatial-ui-demo",
+    "commit": "e2267b1bb641252d46690e8b40694e1a9983fbae",
+    "files": 11,
+    "sourceOnly": true
+  },
+  {
+    "name": "scan-interactive-twin",
+    "folder": "implementations/scan-interactive-twin",
+    "commit": "eceaa649756633ca9d9926433c0d3edd6aec0119",
+    "files": 12,
+    "sourceOnly": true
+  },
+  {
+    "name": "scan-interactive-room-ryo",
+    "folder": "implementations/scan-interactive-room-ryo",
+    "commit": "919dcb30a067afd8a52b47e92aa7104b5fe45775",
+    "files": 11,
+    "sourceOnly": true
+  },
+  {
+    "name": "scan-quality-experiment",
+    "folder": "implementations/scan-quality-experiment",
+    "commit": "9fdb0b70a85a1f8e2fb30da145fa1deac14d7def",
+    "files": 4,
+    "sourceOnly": true
+  },
+  {
+    "name": "spatial-object-memory",
+    "folder": "implementations/spatial-object-memory",
+    "commit": "ca2d5022ce8d2d2e322421b647534d4f82159271",
+    "files": 12,
+    "sourceOnly": true
+  },
+  {
+    "name": "spatial-memory-private-backup",
+    "folder": "implementations/spatial-memory-private-backup",
+    "commit": "6c28037346a9d45097652bc13cea67b4fc3eb729",
+    "files": 115,
+    "sourceOnly": true
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/scan-interactive-room-ryo",
+  "sourceCommit": "919dcb30a067afd8a52b47e92aa7104b5fe45775",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "247f74140e46967fa8118a488f1e868ae0af683320d48d9d14c855ae2c33a4d6",
+      "sourceGitBlob": "a00ce512afbf91830ee9b727a87e3108962045f3",
+      "sanitized": true
+    },
+    {
+      "path": "GITHUB-BACKUP.md",
+      "sha256": "f92d3117e676e3a3aa01ac2f457280a82740d7335e80908730a73262ba5b4bc4",
+      "sourceGitBlob": "96f13123f699f37702ddf3a1ab3971c260b8a27f",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "ea998d3e95db87e967a398bdec5acf29306b2e7e913c80e9f7e0d3ca4de151ca",
+      "sourceGitBlob": "a1844555a9b2417603953c5cdc1002261f04770a",
+      "sanitized": true
+    },
+    {
+      "path": "app.js",
+      "sha256": "e85d354edac1f1975c501836dbbf4697ec8ba0ef66c68385e5c7084b22b06aa5",
+      "sourceGitBlob": "eca51827b1f2b3e9f5bf1cae58a9e8294e2174a2",
+      "sanitized": true
+    },
+    {
+      "path": "diagnose.mjs",
+      "sha256": "cb4e96089df642e779cedbf51faff1240fb643717faa0f6a7d8485cc257dd4b2",
+      "sourceGitBlob": "31c202aaeeb63f425cad12a4c114ed750217672c",
+      "sanitized": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "319aca965b8f57220ec1c1ced13cc79621938966242fca9a2bf588ef8095be11",
+      "sourceGitBlob": "b98627108adb5cfa75e2433e84f1e2753c902025",
+      "sanitized": true
+    },
+    {
+      "path": "inspect.mjs",
+      "sha256": "defd4f8f20ec8b1e9042969a1bd8fc9f9297fcfae3399dd1f1d3d44950d737dd",
+      "sourceGitBlob": "2e71a6a18b8d55e9160cd4d540a2c673ac4afb79",
+      "sanitized": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "adf99d840a083fc539d15dfc8e5e70e6d5a163e684d814f3e2c96ceaba4b4535",
+      "sourceGitBlob": "ce98be882922e2cf40595708bc42669ddfa88b35",
+      "sanitized": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "ec9d04b2a92a2f86fff5ce20eeda94f75ec20aa0ee2a627d33b4d6271c776b43",
+      "sourceGitBlob": "559a1c0013e2fda3306a6339483d8185de89562b",
+      "sanitized": true
+    },
+    {
+      "path": "record.mjs",
+      "sha256": "ef9807ffb37bf2b932e2b87e9c2ca7c7d2de6df33701f5a44a36928c3b377749",
+      "sourceGitBlob": "52a8adddf12c57ffe2340acec0f1408c820e94d0",
+      "sanitized": true
+    },
+    {
+      "path": "server.mjs",
+      "sha256": "76f3a16678e4d48c0a69247b7589eb49e0125f6b9d2e614a7d07cf164f29399d",
+      "sourceGitBlob": "79589e28463b2222a19c2b7ebc2bc4b498d7adb0",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

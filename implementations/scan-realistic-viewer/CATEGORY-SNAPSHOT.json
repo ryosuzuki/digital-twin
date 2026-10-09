@@ -1,0 +1,81 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/scan-realistic-viewer",
+  "sourceCommit": "daa780910ba6baedab32da94a1615b68a3a8cd55",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "0ce989145754451efbeac673c3611f61dbfcb96641951c831675fc5da4ea240f",
+      "sourceGitBlob": "f5e5560834540c6e7f85f72d7a552392099e71d0",
+      "sanitized": true
+    },
+    {
+      "path": "GITHUB-BACKUP.md",
+      "sha256": "f92d3117e676e3a3aa01ac2f457280a82740d7335e80908730a73262ba5b4bc4",
+      "sourceGitBlob": "96f13123f699f37702ddf3a1ab3971c260b8a27f",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "b8384924a8ed78b311dad269e4e03cd6b99595e8c09ab3052c48283075307cae",
+      "sourceGitBlob": "fff2a2da66464d6a10ac72bc9fe8c5bcf442ff4c",
+      "sanitized": true
+    },
+    {
+      "path": "explore.mjs",
+      "sha256": "9a3206be2053a10eb66a83fc29dc0495c8eeda51a5f48b25fc7515f9adeb586d",
+      "sourceGitBlob": "9ad3ee1ae7c3fad7bdd125239e17bd3afa054218",
+      "sanitized": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "06d4cebef0e79270a4ee3f34dad626fb688e408b58a459cd0edc82ab4edcab4e",
+      "sourceGitBlob": "835e54fcdf10b90721e60dcc65b60fa8e22a1e11",
+      "sanitized": true
+    },
+    {
+      "path": "inspect.mjs",
+      "sha256": "9cb53e09c7bfa45dde8a96bbf93f908597d6615ef60d252ea26fa49841245891",
+      "sourceGitBlob": "53f33f8d0fc0db2beeea3c70e3e32e733f2142bf",
+      "sanitized": true
+    },
+    {
+      "path": "open-viewer.command",
+      "sha256": "1e5f8ca1fc36462ae1ab846c11a917639fbd40ad8f75bf4d3a6166dab58e08d3",
+      "sourceGitBlob": "feb6f43250853aa84df912fcd78c81635135ad31",
+      "sanitized": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "309ba24faa299c6ef1669366f1e11cf12827308fb5d5f8c73cf49787a75502fb",
+      "sourceGitBlob": "34b9e964e85863e702d90b18e64a9e40a444e769",
+      "sanitized": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "da81f88e33c92e738042bac4fca7b5883d4d16ab76910bd88e0a332fd3d35c4d",
+      "sourceGitBlob": "9d456db95c1bf5ba6f4affb347124bac1070cc07",
+      "sanitized": true
+    },
+    {
+      "path": "record.mjs",
+      "sha256": "e0ff7eba68c741d09a6b36eaf910e7fdffcc8c0d1c70e3d0e6511982a0fa8a63",
+      "sourceGitBlob": "0ef5467719cb72488b8a3655946de813db741b39",
+      "sanitized": true
+    },
+    {
+      "path": "src.js",
+      "sha256": "458acb5014ad55e4b8bef33d4fabb08b56fe501d9e8e0a3dc698543c108f6e29",
+      "sourceGitBlob": "b1fe141e7cc0af94e5e8ce5125b6f319dcfb342a",
+      "sanitized": true
+    },
+    {
+      "path": "verify-build.mjs",
+      "sha256": "3afca1b69c352794cb0426a0abeb0b08d04c093c0d138f8c115bff5e5341d744",
+      "sourceGitBlob": "9dc5b92d41a33fbe7fe6af3da06920eb1defaf22",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

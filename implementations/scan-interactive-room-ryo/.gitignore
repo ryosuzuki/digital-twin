@@ -1,0 +1,4 @@
+node_modules/
+scan/
+
+.DS_Store

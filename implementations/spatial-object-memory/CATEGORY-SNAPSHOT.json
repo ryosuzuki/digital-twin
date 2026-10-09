@@ -1,0 +1,81 @@
+{
+  "sourceRepo": "https://github.com/ryosuzuki/spatial-object-memory",
+  "sourceCommit": "ca2d5022ce8d2d2e322421b647534d4f82159271",
+  "snapshotDate": "2026-10-09",
+  "publicSourceOnly": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "451bf0a27980dc15479787c9b8099441c51e53a67e7f48bd3dd654672e16de2a",
+      "sourceGitBlob": "adb63f076f3541fa5312f764fa8c9325c63f7c90",
+      "sanitized": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "abacc53248eb17ad1101943a573b91e2a171ba2d765e7ecc13cc10e19de469d1",
+      "sourceGitBlob": "106fc85b8731e9e57b8fa31cad6c10475bc99cf5",
+      "sanitized": true
+    },
+    {
+      "path": "object-tracked.html",
+      "sha256": "ce00ab27ef6b9a07edd4a7031ccd59323343a5d0da4ba890b5303beb4fc391bd",
+      "sourceGitBlob": "9aa8b53bca972a88dee97d970ae3a6651340f052",
+      "sanitized": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "71bcce54101686e35ea141dcc9767596cc2fc0fa86212dd8dd3f41ac522a0bf1",
+      "sourceGitBlob": "79df1e5db32a7ec7ea9c16570955976761278c76",
+      "sanitized": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "d6fff2838d20e10d1306b6f17f53b4eee11a78e42735f0b6a54a967dd97c1fc1",
+      "sourceGitBlob": "0a58b028e8feabf033b4c250e516547814fd0463",
+      "sanitized": true
+    },
+    {
+      "path": "scripts/check-demo.mjs",
+      "sha256": "ce636791d515cd31851e0f556453bd314907d235ed3208605f097e0855e26dfa",
+      "sourceGitBlob": "9ee76bb5a82c90f473949cf92f499042c2db5a1d",
+      "sanitized": true
+    },
+    {
+      "path": "scripts/derive-bottle-world.py",
+      "sha256": "092734bb1b1b10aeab15ee8aab5a6e0e0e81e5cd55beccd8737604e1041dad94",
+      "sourceGitBlob": "6ad3052b49090521f2ae99f99f7272d0243872c5",
+      "sanitized": true
+    },
+    {
+      "path": "scripts/make-fixture.mjs",
+      "sha256": "cfaaf1e084616c9d82a3f0b61f0281ae0ee53e7123ed9b5a3cd98f9663901fc8",
+      "sourceGitBlob": "41c867f44d5bb917eaeb67b86f6089d2401da29a",
+      "sanitized": true
+    },
+    {
+      "path": "scripts/serve.mjs",
+      "sha256": "36f466bdd7e856ddc172cd7b643a9eaa226f2779a5fe86493f2bdc9813e63c57",
+      "sourceGitBlob": "bbc2dd0a85cf7fcbad70f686b568ea201e5ca93c",
+      "sanitized": true
+    },
+    {
+      "path": "src/math.mjs",
+      "sha256": "a96ea75ffeb82e164a7a4c816388552b63ec7c79541e6966c9b411b1eaf5eca6",
+      "sourceGitBlob": "71c31af9b0daa1c4dc6d2005fa19a2752e7dd524",
+      "sanitized": true
+    },
+    {
+      "path": "src/object-stream-base.mjs",
+      "sha256": "f0e654ce055e9b0347bd9bb736378a7bf9af126dd6ff320f46dbe841f55c2f7f",
+      "sourceGitBlob": "797f026cd0d02b2e7308ac67eedc048a7097ff6d",
+      "sanitized": true
+    },
+    {
+      "path": "src/object-tracked.mjs",
+      "sha256": "ef06d915c88d0b3c038393054cab4c6671d9fc84aa97c529d3715718fc260647",
+      "sourceGitBlob": "994c85dcdb5b9f3019b19f1cd817abca08f68536",
+      "sanitized": true
+    }
+  ],
+  "assets": "Not included. Bring your own room/avatar/capture data; see ASSETS.md. Full private restore provenance is preserved separately."
+}

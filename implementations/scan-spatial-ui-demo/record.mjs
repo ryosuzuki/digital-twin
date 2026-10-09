@@ -1,0 +1,16 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs';
+const out='/path/to/local-assets';
+const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
+const context=await browser.newContext({viewport:{width:1440,height:950},recordVideo:{dir:out,size:{width:1440,height:950}},acceptDownloads:true});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await context.addInitScript(()=>{if(!sessionStorage.getItem('test-started')){localStorage.setItem('ryo-scan-layout-v1','[]');sessionStorage.setItem('test-started','1')}});await page.goto('http://127.0.0.1:8813');await page.waitForFunction(()=>window.demo,{timeout:60000});await page.waitForTimeout(1500);
+await page.fill('#text','Dinner at 7');await page.click('#pin');await page.mouse.click(823,350);await page.waitForTimeout(700);
+await page.locator('#size').fill('0.55');await page.locator('#size').dispatchEvent('input');await page.locator('#offset').fill('0.16');await page.locator('#offset').dispatchEvent('input');await page.waitForTimeout(1500);
+await page.fill('#text','Welcome home');await page.click('#pin');await page.mouse.click(330,360);await page.locator('#size').fill('0.4');await page.locator('#size').dispatchEvent('input');await page.locator('#offset').fill('0.16');await page.locator('#offset').dispatchEvent('input');await page.waitForTimeout(1500);
+await page.click('#object');await page.mouse.click(816,535);await page.waitForTimeout(1500);
+console.log(await page.evaluate(()=>demo.state()));await page.screenshot({path:out+'/spatial-content.png'});
+const before=await page.evaluate(()=>demo.state().annotations);await page.mouse.move(600,500);await page.mouse.down();await page.mouse.move(680,505,{steps:45});await page.mouse.up();await page.waitForTimeout(1500);await page.mouse.move(680,505);await page.mouse.down();await page.mouse.move(540,500,{steps:60});await page.mouse.up();await page.waitForTimeout(1500);await page.click('#inside');await page.waitForTimeout(1000);
+const after=await page.evaluate(()=>demo.state().annotations);if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Anchors moved with camera');
+const downloadPromise=page.waitForEvent('download');await page.click('#export');const download=await downloadPromise;await download.saveAs(out+'/ryo-spatial-layout.json');
+await page.reload();await page.waitForFunction(()=>window.demo,{timeout:60000});const restored=await page.evaluate(()=>demo.state().annotations);if(JSON.stringify(restored)!==JSON.stringify(before))throw Error('Persistence failed');await page.waitForTimeout(1000);await page.screenshot({path:out+'/spatial-content-restored.png'});
+fs.writeFileSync(out+'/verification.json',JSON.stringify({errors,annotationCount:before.length,anchorInvariantAfterOrbit:true,persistenceAfterReload:true,source:'actual 2026_10_08_12_41_21 textured mesh',limitations:['No live tracking or recorded-video compositing','Static original mesh includes scan holes','No alignment to Polycam or Gaussian Splat'],annotations:before},null,2));
+await context.close();await browser.close();console.log('Recording complete');

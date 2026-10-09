@@ -1,0 +1,3 @@
+import {chromium} from 'playwright';
+const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--enable-webgl','--use-angle=metal']});
+const page=await browser.newPage({viewport:{width:1280,height:800}});page.on('console',m=>console.log(m.type(),m.text()));page.on('pageerror',e=>console.log('PAGEERROR',e.message));await page.goto('http://127.0.0.1:8816');await page.waitForFunction(()=>window.demo?.ready,{timeout:90000});await page.waitForTimeout(4000);console.log(await page.evaluate(()=>window.demo.bounds));await page.screenshot({path:'/path/to/local-assets'});await browser.close();
