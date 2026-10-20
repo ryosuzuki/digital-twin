@@ -173,9 +173,9 @@ Unverified: quantitative moving-head alignment, physical A-button input, long-du
 
 [Lecture slides — Quest implementation extension](https://docs.google.com/presentation/d/1cSDat0MuJk7qmj2TtbPbHt5IGeLQUsle8kemzN639hY/edit#slide=id.quest_lab_section)
 
-Thirteen slides (38–50) follow the existing 37-slide deck. Actual device images and Drive video remain in the lecture distribution; raw room media is not redistributed here.
+The 13-slide Quest extension is addressed by stable `quest_lab_*` slide IDs. Other contributors may add sections and change visible slide numbers; the current live deck is not assumed to contain exactly50 slides. The outline below uses the original37-slide **reproduction template** numbering (38–50), not an authoritative live-deck position. Actual device images and Drive video remain in the lecture distribution; raw room media is not redistributed here.
 
-| Slide | Topic |
+| Template slide | Topic |
 |---|---|
 | 38 | Build it: object-aware AR — implementation section |
 | 39 | Recognize objects in first person — actual demo frame |
@@ -191,7 +191,7 @@ Thirteen slides (38–50) follow the existing 37-slide deck. Actual device image
 | 49 | Verify the label stays put — retention and physical-motion limits |
 | 50 | Try it, then change one layer — classroom exercise |
 
-[slides.json](tutorial/slides.json) preserves slide IDs, order, titles, and technical notes. [compose-slides.py](tutorial/compose-slides.py) reproduces native Slides shapes/text and Drive image/video references. It contains neither media pixels nor credentials. It requires the specific course template's layout/placeholder IDs; it is not a universal empty-deck authoring tool.
+[slides.json](tutorial/slides.json) preserves template slide IDs, order, titles, and technical notes; its numbers are not live-deck positions. [compose-slides.py](tutorial/compose-slides.py) reproduces native Slides shapes/text and Drive image/video references. It contains neither media pixels nor credentials. It requires the specific course template's layout/placeholder IDs; it is not a universal empty-deck authoring tool.
 
 ### Safe dry-run: generate without writing to Google
 
@@ -218,4 +218,4 @@ Do not reapply to the completed original deck. Existing IDs and the 37-slide che
 - [WebXR Raw Camera Access specification](https://immersive-web.github.io/raw-camera-access/)
 - Repository sources: [Unity processing](unity/QuestYolo.cs), [scene generation](unity/Editor/ClassroomBuild.cs), [Web processing](web/src/yolo.js), [verification](VERIFICATION.md).
 
-Publication scope: implementation teaching sources and original schematic figures only. No room media, private transcripts, credentials, SDK binaries, or model weights. Integration target: `origin/main`; completion owner: Quest classroom tutorial task. Authoritative tutorial paths: this file, `tutorial/`, and tutorial links in implementation/root README. Runtime code and imported snapshots remain unchanged.
+Publication scope: implementation teaching sources and original schematic figures only. No room media, private transcripts, credentials, SDK binaries, or model weights. Integration target: `origin/main`; completion owner: Quest classroom tutorial task. Authoritative paths: this tutorial, `tutorial/`, native source under `unity/`, verification/artifact receipts, and README links. Native source now targets0.3.0 session anchors; imported snapshots remain unchanged.
