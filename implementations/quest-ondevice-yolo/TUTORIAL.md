@@ -159,6 +159,46 @@ npm run dev
 4. **Measure**: `QUEST_YOLO ... inference_ms=... depth_hits=... tracked=...`ログを使う。表示FPSと混同しない。
 5. **Extend**: 複数rayの深度集約を追加する。動的物体ID追跡・永続アンカーは別の課題として設計する。
 
+## Lecture slides / 授業スライドと再利用
+
+[授業スライド — Quest implementation extension](https://docs.google.com/presentation/d/1cSDat0MuJk7qmj2TtbPbHt5IGeLQUsle8kemzN639hY/edit#slide=id.quest_lab_section)
+
+既存37枚の後ろへ追加した13枚（38–50）の構成です。実機の静止画とDrive動画は授業スライド側に置き、このGitには元の部屋画像・録画を再配布しません。
+
+| Slide | Topic |
+|---|---|
+| 38 | Build it: object-aware AR — implementation section |
+| 39 | Recognize objects in first person — actual demo frame |
+| 40 | Demo: on-headset inference — actual device video |
+| 41 | From labels to XR-Objects — object-bound interaction goal |
+| 42 | Detection is not yet tracking — capability distinctions |
+| 43 | How it runs on the headset — processing pipeline |
+| 44 | A ray turns a pixel into a 3D point — projection geometry |
+| 45 | What we used — pinned software stack |
+| 46 | The center-ray step in code — source excerpt |
+| 47 | Unity native versus WebXR — current capabilities |
+| 48 | What the real-device test shows — measured acceptance |
+| 49 | Next: make each object actionable — unimplemented extensions |
+| 50 | Try it, then change one layer — classroom exercise |
+
+[slides.json](tutorial/slides.json)にスライドID・順序・見出し・技術上の注記を保存しています。[compose-slides.py](tutorial/compose-slides.py)はネイティブなGoogle Slides図形・テキスト・Drive画像／動画の生成レシピです。画像・動画の画素や認証情報は含みません。レシピはこの授業テンプレートのlayout/placeholder IDを使用します。任意の空スライドへそのまま適用する汎用ツールではありません。
+
+### Safe dry-run / APIへ書かずに再生成
+
+1. 自分が利用を許可されたDrive画像・動画を用意し、`media.json`を作ります。形式は`[{"id":"IMAGE_DRIVE_ID"},{"id":"VIDEO_DRIVE_ID"}]`です。アクセス権の変更や素材のアップロードはこのレシピでは行いません。
+2. 未作成の作業フォルダを指定して実行します（標準ライブラリのみ、認証不要）。
+
+```bash
+python3 implementations/quest-ondevice-yolo/tutorial/compose-slides.py \
+  --presentation-id YOUR_TEMPLATE_COPY_ID \
+  --media-json /absolute/media.json \
+  --work-dir /absolute/new/quest-slide-plan
+```
+
+`manifest.json`と`requests.json`が生成されます。既定ではGoogle APIを一切呼びません。実際に反映する場合のみ、元の37枚構成を保つ授業テンプレートの**コピー**と、利用者側で認証済みの`google_api.py` helper（`Google().presentation(id)`と`Google().batch(id, requests)`を実装）を用意し、新しい作業フォルダ・`--google-helper-dir /absolute/helper-directory --apply`を指定します。
+
+元の完成済み授業スライドには再適用しないでください。13枚は既に存在し、ID重複／37枚チェックにより中断します。適用は複数バッチで行うため、途中失敗したコピーには盲目的に再実行せず、部分適用を確認して新しいコピーでやり直します。認証の読み込み・トークン取得・保存ロジックは利用者のhelperに分離してあり、このソースには含めません。
+
 ## Sources / 参照
 
 - [XR-Objects: project and paper](https://xr-objects.github.io/) — UIST 2024, DOI 10.1145/3654777.3676379, Figure 4 / §3.3, pp.5–7.

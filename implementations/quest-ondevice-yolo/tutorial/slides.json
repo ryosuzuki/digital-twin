@@ -1,0 +1,93 @@
+[
+  {
+    "slide_id": "quest_lab_section",
+    "title": "Build it: object-aware AR",
+    "takeaway": "",
+    "notes": "Teaching extension: current implementation is local detection + approximate 3D localization. Object-bound menus are the XR-Objects-inspired next layer, not an implemented feature.",
+    "number": 38
+  },
+  {
+    "slide_id": "quest_lab_demo",
+    "title": "Recognize objects in first person",
+    "takeaway": "Actual Quest 3 capture — no camera-preview panel, no external GPU.",
+    "notes": "Authentic frame from quest-firstperson-preview-020.mp4, native0.2.0, stationary Quest3. Left-eye compositor crop; not generated. Video source hash is recorded with artifacts.json. Person/chair/laptop labels are model predictions, not ground truth.",
+    "number": 39
+  },
+  {
+    "slide_id": "quest_lab_video",
+    "title": "Demo: on-headset inference",
+    "takeaway": "15-second real-device recording; the model runs on the headset.",
+    "notes": "Actual native0.2.0 Quest3 compositor recording. This is stationary-device evidence only. Moving-head alignment and temporal identity tracking are not established. Native Drive video uses same course audience as the deck; fallback link provided.",
+    "number": 40
+  },
+  {
+    "slide_id": "quest_lab_xrobjects",
+    "title": "From labels to XR-Objects",
+    "takeaway": "The goal is an interface attached to a real object — not just a box.",
+    "notes": "Related work: Augmented Object Intelligence with XR-Objects, Dogan et al., UIST2024, doi10.1145/3654777.3676379, https://xr-objects.github.io/. Original evaluated phone prototype uses ARFoundation/ARCore + on-device MediaPipe object detection and cloud PaLI. Diagram is a conceptual next step for this Quest sample; object menu, selection, LLM and actions are NOT implemented.",
+    "number": 41
+  },
+  {
+    "slide_id": "quest_lab_levels",
+    "title": "Detection is not yet tracking",
+    "takeaway": "Each additional capability needs a new representation.",
+    "notes": "Source: QuestYolo.cs Draw() destroys and recreates annotations each inference; no temporal IDs or persistent anchors. Ladder is a teaching classification, not a measured performance claim. Center ray surface point is not full 3D object center.",
+    "number": 42
+  },
+  {
+    "slide_id": "quest_lab_pipeline",
+    "title": "How it runs on the headset",
+    "takeaway": "Pixels provide semantics; geometry places the result in the room.",
+    "notes": "Source QuestYolo.cs Start(), Decode(), Draw(). Snapshot resized640x640; YOLOv9 ONNX, class threshold.35 class-aware NMS.45, calibrated exposure-time camera pose. Environment depth used for center ray, corners projected on plane. Arrows show actual data flow; depth branch merges after inference.",
+    "number": 43
+  },
+  {
+    "slide_id": "quest_lab_geometry",
+    "title": "A ray turns a pixel into a 3D point",
+    "takeaway": "Use the detection center — not the center of the headset display.",
+    "notes": "Conceptual geometry (not measured scale): captured camera position o and calibrated ViewportPointToRay direction d. EnvironmentRaycastManager.Raycast returns hit.point P=o+t*d. A camera-parallel plane through P supplies all four box corner intersections. Center may be background. No exact object mesh or geometric centroid is recovered.",
+    "number": 44
+  },
+  {
+    "slide_id": "quest_lab_stack",
+    "title": "What we used",
+    "takeaway": "A reproducible Unity project, built from a pinned Meta sample.",
+    "notes": "Source README.md, scripts/prepare-unity.py, unity/ClassroomBuild.cs. Unity6000.4.5f1, MRUK85.0.0, InferenceEngine2.6.1 OpenXR1.16.1. Meta source pinned3baac1a1a53aa00af3f639425914f14238a97f84. Camera API support scoped to Quest3/3S; physical test Quest3 only. Camera+spatial data permissions required.",
+    "number": 45
+  },
+  {
+    "slide_id": "quest_lab_code",
+    "title": "The center-ray step in code",
+    "takeaway": "Use camera calibration and the captured pose; do not guess a distance.",
+    "notes": "Excerpt from actual QuestYolo.cs Draw(). Requires configured PassthroughCameraAccess cameraAccess, EnvironmentRaycastManager environmentRaycast, exposure-time capturedPose, normalized box bounds. This excerpt is not standalone runnable code. Full setup and complete project generation linked below. If raycast fails no annotation is rendered.",
+    "number": 46
+  },
+  {
+    "slide_id": "quest_lab_platforms",
+    "title": "Unity native versus WebXR",
+    "takeaway": "Local inference is possible in both; camera and geometry access differ.",
+    "notes": "README/VERIFICATION: native physically accepted; Web model inference verified on desktop CPU WASM only. Current WebXR displays preview panel, not equivalent first-person object overlay. Quest Browser camera during XR, performance and Raw Camera Access support unverified. WebGPU is not the current web backend.",
+    "number": 47
+  },
+  {
+    "slide_id": "quest_lab_evidence",
+    "title": "What the real-device test shows",
+    "takeaway": "Stationary Quest 3 · native 0.2.0 · one short acceptance run.",
+    "notes": "VERIFICATION.md actual0.2.0 acceptance:122 new-process inference samples, median pipeline271.61ms;121/122 samples had3–5 depth-backed annotations. Not per-object accuracy/depth success rate. Includes preprocessing/scheduling/readback/decode/draw until logging, not just neural model execution or XR FPS.14.954811s stereo video415decodedframes; preview left-eye crop. Motion alignment, physical A-button, long duration, physical unplug remain unverified.",
+    "number": 48
+  },
+  {
+    "slide_id": "quest_lab_next",
+    "title": "Next: make each object actionable",
+    "takeaway": "An XR-Objects-inspired extension — not yet in this demo.",
+    "notes": "Proposed next layer, not implemented: class-aware temporal association and depth gated smoothing; stable object record; selection using hand/controller ray; contextual menu attached to measured object point; local actions first, optional remote reasoning separately disclosed. Original XR-Objects phone prototype uses cloud reasoning; our local YOLO claim does not imply local LLM. Semantic object point must remain distinguishable from actual mesh/anchor.",
+    "number": 49
+  },
+  {
+    "slide_id": "quest_lab_exercise",
+    "title": "Try it, then change one layer",
+    "takeaway": "Start from the working sample instead of rebuilding the SDK setup.",
+    "notes": "Reproduce via README: python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/new/quest-yolo-unity; open Unity6000.4.5f1; ClassroomPrepare then BuildAndroidAPK; install own org.openclaw.classroom.yolo. Existing demo installed0.2.0. Exercise extensions not accepted implementation. Repo publication main and exact source hashes verified separately.",
+    "number": 50
+  }
+]
