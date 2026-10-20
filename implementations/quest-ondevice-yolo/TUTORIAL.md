@@ -1,95 +1,95 @@
 # Object detection → spatial AR
 
-**Teaching walkthrough · native 0.2.0 · 2026-10-20**
+**Teaching walkthrough · native 0.3.0 session-anchor implementation · 2026-10-20**
 
 [Standalone HTML tutorial](tutorial/index.html) · [Setup](README.md) · [Device verification](VERIFICATION.md) · [Source](unity/QuestYolo.cs)
 
 > **Can we raycast the detected object's center into Quest depth? Yes. That is the current native implementation.**
 > YOLO 2D box → calibrated center ray → environment-depth hit → world-space annotation.
-> This estimates a surface position; it does not establish temporal object identity or persistent anchors.
+> This estimates a surface position and retains a session-local native anchor. It does not establish moving-object identity or saved cross-relaunch persistence.
 
 ## 1. What you see
 
-The native sample draws green outlines and labels such as `chair` or `person` directly over the normal first-person passthrough view. There is no rectangular camera-video panel. Camera frames are still required for inference, but do not need to be displayed as UI.
+Native 0.3.0 displays **labels only**, centered on measured surface hits in normal first-person passthrough. There is no camera-preview panel or rectangular detection outline. The camera is inference input; Meta's compositor supplies the physical view.
 
-**Recognition input and passthrough display follow different paths.** The Meta compositor renders the physical view; the application adds only line and text geometry.
+![On-device recognition to anchored labels](tutorial/pipeline.svg)
 
-![Pipeline — all inference stays on the headset](tutorial/pipeline.svg)
-
-Editable figures: [pipeline.svg](tutorial/pipeline.svg) / [center-raycast.svg](tutorial/center-raycast.svg). These are explanatory schematics, not device captures. Actual device video is distributed through the lecture slides and requester-facing deliverables. Room images, recordings, model weights, and APKs are not redistributed in this Git repository.
+Editable schematics: [pipeline.svg](tutorial/pipeline.svg) and [center-raycast.svg](tutorial/center-raycast.svg). These are diagrams, not device screenshots. Actual device media remains in the lecture distribution, not Git.
 
 ## 2. What runs where
 
-| Layer | Native Unity implementation | Web implementation |
+| Layer | Unity native 0.3.0 | Web implementation |
 |---|---|---|
-| Input | Meta Passthrough Camera API / Quest 3–3S | Readable `getUserMedia` camera or local image/video |
-| Detector | Pinned YOLOv9 ONNX model | Same model |
+| Input | Meta Passthrough Camera API / Quest 3–3S | Readable getUserMedia camera or local image/video |
+| Detector | Pinned YOLOv9 ONNX | Same model |
 | Inference | Unity Inference Engine 2.6.1 / built-in GPUCompute, optional CPU | ONNX Runtime Web 1.22.0 / WASM CPU |
-| Spatial placement | MRUK 85.0.0 / EnvironmentRaycastManager | Not implemented in this Web sample |
-| Display | Unity OpenXR 1.16.1 / world-space lines and text / compositor passthrough | Three.js 0.180.0 / preview panel inside WebXR |
-| Build | Unity 6000.4.5f1 / Android ARM64–IL2CPP verified | Vite 6.4.4 |
-| External GPU | Not required | Not required |
-| Headset acceptance | Native 0.2.0 physically verified within the limits below | Quest Browser not physically tested |
+| Localization | MRUK 85.0.0 / calibrated center ray into environment depth | Not implemented |
+| Retention | Native OVRSpatialAnchor, session-local | Not implemented |
+| Display | OpenXR 1.16.1 / label child under anchor | Three.js 0.180.0 / WebXR video-preview panel |
+| Build | Unity 6000.4.5f1 / Android ARM64–IL2CPP | Vite 6.4.4 |
 
-Initial setup downloads SDKs and the model. Native runtime inference remains on the headset, without an external inference server or `adb reverse`. **No external GPU** means using Quest's built-in GPU, not avoiding GPUs entirely.
+Initial setup downloads SDKs and weights. Runtime inference remains on Quest, without an external inference server or adb reverse. **No external GPU** means using the headset GPU, not avoiding GPUs entirely.
 
-A visible WebXR passthrough background does not imply JavaScript can read its pixels or depth. A Raw Camera Access specification is not proof of Quest Browser support. The current Web sample does not provide the native sample's spatial placement.
+WebXR passthrough visibility does not imply JavaScript camera/depth access. The current Web sample is not equivalent spatial placement or anchoring; Quest Browser support/performance remains unverified.
 
-## 3. Center raycast: from a 2D box to an approximate 3D position
+## 3. Center raycast → session anchor → label
 
-![Center raycasting and approximate annotation plane](tutorial/center-raycast.svg)
+![Center ray and native anchor](tutorial/center-raycast.svg)
 
-1. YOLO returns `class, score, x, y, width, height` in a 640×640 image. It does not return 3D positions.
-2. Normalize the box and convert the image's top-origin coordinates to Unity's bottom-origin viewport coordinates.
-3. Pass its center UV to `ViewportPointToRay(uv, capturedPose)`. Do not guess a field of view or fixed distance.
-4. Query environment depth with `EnvironmentRaycastManager.Raycast`. The hit point supplies an approximate world-space object location.
-5. Construct a plane through that point, parallel to the exposure-time camera. Intersect the four corner rays with this plane and draw their outline.
-6. Hide annotations when there is no hit, distance is out of range, or positional tracking is lost.
+1. YOLO returns a class, score, and box in a 640×640 image, not a 3D object position.
+2. Normalize the box and convert its top-origin coordinates into bottom-origin viewport coordinates.
+3. Use calibrated `ViewportPointToRay(centerUV, capturedPose)` with the exposure-time camera pose.
+4. Raycast into MRUK environment depth. With no hit, do not create an anchor.
+5. Place a new independent root once at the measured hit; add `OVRSpatialAnchor`.
+6. Wait for both `Localized` and `IsTracked`. Hide pending/failed anchors and do not count them as ready.
+7. Render centered text under the native anchor. Rotate only the child text to face the viewer; never move the root from later image detections.
 
 ### Actual implementation
 
-Excerpt from [QuestYolo.cs, Draw()](unity/QuestYolo.cs). Variable `b` is a normalized detection box.
+Excerpt from [QuestYolo.cs](unity/QuestYolo.cs), `Observe()`:
 
 ```csharp
-float left = Mathf.Clamp01(b.x), right = Mathf.Clamp01(b.x + b.w);
-float bottom = Mathf.Clamp01(1 - b.y - b.h), top = Mathf.Clamp01(1 - b.y);
 var ray = cameraAccess.ViewportPointToRay(
     new Vector2((left+right)/2, (bottom+top)/2), capturedPose);
 if (!environmentRaycast.Raycast(ray, out var hit, 12f)) continue;
-float distance = Vector3.Distance(capturedPose.position, hit.point);
-if (distance < .25f || distance > 12) continue;
-var plane = new Plane(capturedPose.rotation * Vector3.forward, hit.point);
+// For a new object record only:
+var root = new GameObject("ObjectAnchor_" + nextId);
+root.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
+itemNew.anchor = root.AddComponent<OVRSpatialAnchor>();
 ```
 
-The camera pose is captured before copying the image. Projecting an older image using the later head pose after inference would introduce additional motion-related misalignment.
+This excerpt omits record creation and association; use the full source, not this fragment as a standalone script. The root is independent of the head. Native anchor tracking may refine its pose; the application does not drive its position from headset motion or later 2D boxes.
 
 ```csharp
-capturedPose = cameraAccess.GetCameraPose();
-Graphics.Blit(cameraAccess.GetTexture(), snapshot);
+// Billboard orientation only; no application-driven position change.
+item.content.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 ```
 
-[Full processing path](unity/QuestYolo.cs): `Start()` captures and infers → `Decode()` applies confidence threshold and class-aware NMS → `Draw()` raycasts and draws world-space geometry → `Update()` checks expiry and tracking.
+A native anchor pins a location, not a moving object's identity. A chair opening or gap between legs can put the center ray on background. Depth reports surfaces, not semantic ownership. Fixed labels can therefore remain at a wrong surface if the initial hit was wrong. Multiple-ray depth aggregation or segmentation could improve this, but is not implemented.
 
-### Why the center is not always the object
+### Retention and controls
 
-Chair openings, gaps between a person's legs, and overlapping objects can put the box center on background. Depth reports a surface distance along a pixel direction, not object identity or ownership. A single ray does not guarantee the geometric center or 3D dimensions of the object.
+- Same-class observations are matched one-to-one to existing roots within 0.65m. Matching updates confidence and last-seen time, not root position.
+- At most 20 object records. Unseen records expire after 30s; frozen observation time does not consume retention time.
+- **A:** freeze/resume observations while retaining labels. **B:** clear session anchors.
+- Losing app focus or head tracking hides labels but keeps records. Anchor tracking/localization must be valid before labels reappear.
+- No disk save, cloud sharing, or cross-relaunch restoration. Restarting requires new detections/anchors.
+- Logs include create/localized/associated/visibility/retired events, stable record IDs, native UUIDs, anchor position, headset pose, and inference frame.
+- Developer-only Android float extra `classroom_demo_freeze_after` (default 0) can freeze after a real observation interval. HUD/logs explicitly identify the frozen phase; no synthetic detections are inserted.
 
-**Possible extensions, not implemented:** sample multiple rays within the box, reject depth outliers, and use a median or nearer cluster. A segmentation mask could exclude background. Object identity errors and occlusion still require separate handling.
+## 4. Detection, location retention, and object tracking
 
-## 4. Detection ≠ tracking ≠ anchors
+| Capability | Native 0.3.0 |
+|---|---|
+| 2D detection | YOLO classes and boxes used internally |
+| Approximate 3D localization | Calibrated center-ray depth hit |
+| Stable session label | Native OVRSpatialAnchor; not recreated on every inference |
+| Association | Class/proximity matching of stationary locations; can confuse nearby same-class objects |
+| Moving-object tracking | Not implemented; anchor does not follow a moved object |
+| Saved persistent anchor | Not implemented; no cross-relaunch save/load |
+| Exact object geometry / digital twin | Not recovered by this sample |
 
-| Concept | Question | Current 0.2.0 |
-|---|---|---|
-| 2D detection | What appears where in this image? | Implemented: YOLO classes and boxes |
-| 3D localization | Where in the world should this annotation appear? | Implemented: approximate center-ray depth hit |
-| Temporal object tracking | Is this the same object across time? | **Not implemented:** annotations are recreated, without persistent IDs |
-| Head tracking | Where is the headset and how is it oriented? | Uses Meta positional tracking, not object identity |
-| Persistent anchor | Can content return to the same location after restart? | **Not implemented:** no saving or sharing |
-| Digital twin | Can objects, geometry, and state be managed over time? | Not accomplished by this sample alone |
-
-One asynchronous inference runs at a time. Lines and labels are recreated after each result. The default requested maximum is 5Hz, but processing time can reduce the actual update rate. **A 5Hz setting guarantees neither 5 detection FPS nor XR rendering FPS.** Annotations expire after 0.85 seconds without updates.
-
-A next-stage object record could store `trackId, class, position, confidence, lastSeen` and associate new detections with past 3D positions, classes, and 2D boxes. Tracking a moving object differs from anchoring content to a fixed location. These are proposed extensions, not accepted current features.
+One inference runs at a time. Requested maximum 5Hz is not guaranteed update FPS or XR rendering FPS. Native 0.2.0 historically recreated planar box outlines each inference and expired them after 0.85s; **that is not the 0.3.0 label-only anchor behavior**.
 
 ## XR-Objects: Augmented Object Intelligence
 
@@ -101,10 +101,10 @@ Figure 4 and §3.3 (PDF pp.5–7) describe **object detection → depth raycast 
 |---|---|---|
 | Find | MediaPipe detector | Local YOLO |
 | Localize | ARCore depth and raycast | MRUK environment depth and center ray |
-| Present | Object proxy and contextual menu | World-space outlines and class labels |
+| Present | Object proxy and contextual menu | Session-anchored class labels |
 | Act / reason | Information, compare, share, anchor widgets / cloud PaLI | **Not implemented:** selection, menus, per-object conversation, and cloud reasoning |
 
-The Quest sample provides the **detection and localization foundation** for an XR-Objects-inspired interface. A possible extension places a Prefab at the center-ray hit, selects it with a controller/hand ray, and opens an object-bound menu. Native 0.2.0 does not implement or validate that interaction. A `chair` label alone does not identify a product or answer questions about it.
+The Quest sample provides the **detection and localization foundation** for an XR-Objects-inspired interface. A possible extension places a Prefab at the center-ray hit, selects it with a controller/hand ray, and opens an object-bound menu. Native 0.3.0 does not implement or validate menus or actions; the immediate teaching goal is the anchored label itself. A `chair` label alone does not identify a product or answer questions about it.
 
 ## 5. Reproduce
 
@@ -120,9 +120,9 @@ Install Git LFS and Unity Hub Android Build Support (SDK/NDK/OpenJDK). The boots
 1. Open the generated project in **Unity 6000.4.5f1**.
 2. Run **Classroom > Prepare YOLO scene**.
 3. Run **Classroom > Build Android APK**.
-4. Install on Quest 3/3S. The verified package is `org.openclaw.classroom.yolo`, version `0.2.0/code3`.
+4. Install on Quest 3/3S. The verified package is `org.openclaw.classroom.yolo`, version `0.3.0/code4`.
 5. Grant camera and spatial-data permissions; establish positional tracking, then open **Classroom Local YOLO**.
-6. Confirm green outlines and labels over normal passthrough, without a camera-preview panel.
+6. Confirm centered labels over normal passthrough, without a camera-preview panel or box. A freezes observations while labels remain; B clears anchors.
 
 [ClassroomBuild.cs](unity/Editor/ClassroomBuild.cs) defines scene, permission, and Prefab setup. [prepare-unity.py](scripts/prepare-unity.py) defines pinned retrieval. The camera API targets Quest 3/3S. Documented API minimum requirements differ from the exact versions used in this verified build.
 
@@ -138,7 +138,17 @@ npm run dev
 
 Start on desktop: Load model → camera or local image → detections. Quest distribution needs trusted HTTPS. WebXR uses a preview panel; browser-camera access depends on actual permission and support. See the [Web setup](README.md#web).
 
-## 6. What was actually tested
+## 6. Device evidence and historical baseline
+
+### Current native 0.3.0: session-anchor label retention
+
+Actual second cold launch on a stationary Quest 3 produced **57 real inference samples**, median **271.12ms** pipeline turnaround. **7 native anchors localized with UUIDs**, with 167 association events and zero logged creation failures.
+
+After the explicitly logged developer-timer freeze, inference frame 57 stopped advancing while the same 7 UUIDs remained visible in final pose logs, at 17–20.51 seconds since last observation. The actual preview is 22.020s at 768×822 with 738 decoded frames, visually inspected at the first/middle/last frames. Overlapping/duplicate class labels remain a known limitation. This verifies label retention without repeated detections. It does not establish physical A-button input, quantitative moving-head accuracy, or moved-object tracking. The first OS position-finding take had zero inferences and is not acceptance. See [VERIFICATION.md](VERIFICATION.md) for the record.
+
+Historical 0.2.0 numbers below are not 0.3.0 results.
+
+### Historical native 0.2.0: planar outlines, not session anchors
 
 [VERIFICATION.md](VERIFICATION.md) is the primary acceptance record. On a **stationary Quest 3, native 0.2.0, 2026-10-20**:
 
@@ -157,7 +167,7 @@ Unverified: quantitative moving-head alignment, physical A-button input, long-du
 2. **Localize:** find cases where the center ray hits background, such as a chair opening.
 3. **Explain:** why do four 2D corners not recover the physical object's 3D geometry?
 4. **Measure:** inspect `QUEST_YOLO ... inference_ms=... depth_hits=... tracked=...`; do not confuse timing with rendering FPS.
-5. **Extend:** aggregate multiple depth rays. Design object-ID tracking and persistent anchors as separate tasks.
+5. **Retain:** freeze observations and compare stable native UUIDs/positions across updates. Moving-object tracking and cross-relaunch persistence remain separate tasks.
 
 ## Lecture slides and reuse
 
@@ -170,15 +180,15 @@ Thirteen slides (38–50) follow the existing 37-slide deck. Actual device image
 | 38 | Build it: object-aware AR — implementation section |
 | 39 | Recognize objects in first person — actual demo frame |
 | 40 | Demo: on-headset inference — actual device video |
-| 41 | From labels to XR-Objects — object-bound interaction goal |
+| 41 | From detections to anchored labels — recognize, locate, anchor |
 | 42 | Detection is not yet tracking — capability distinctions |
 | 43 | How it runs on the headset — processing pipeline |
-| 44 | A ray turns a pixel into a 3D point — projection geometry |
+| 44 | A center hit becomes a stable label — native session anchor |
 | 45 | What we used — pinned software stack |
 | 46 | The center-ray step in code — source excerpt |
 | 47 | Unity native versus WebXR — current capabilities |
-| 48 | What the real-device test shows — measured acceptance |
-| 49 | Next: make each object actionable — unimplemented extensions |
+| 48 | What the anchor-retention test shows — native 0.3.0 measurements |
+| 49 | Verify the label stays put — retention and physical-motion limits |
 | 50 | Try it, then change one layer — classroom exercise |
 
 [slides.json](tutorial/slides.json) preserves slide IDs, order, titles, and technical notes. [compose-slides.py](tutorial/compose-slides.py) reproduces native Slides shapes/text and Drive image/video references. It contains neither media pixels nor credentials. It requires the specific course template's layout/placeholder IDs; it is not a universal empty-deck authoring tool.

@@ -14,7 +14,7 @@ Existing imported implementations remain unchanged.
 - Root `python3 scripts/verify-snapshots.py`: **177 preserved source hashes passed**.
 - Unity **6000.4.5f1**, MRUK **85.0.0**, Unity Inference Engine **2.6.1**, OpenXR **1.16.1**: C# compiled; classroom scene generated; Android ARM64/IL2CPP development APK built successfully.
 - Built source hashes match the published QuestYolo.cs / ClassroomBuild.cs bytes. Source bootstrap was independently rerun into a fresh directory; custom source, dependency overrides and package lock match.
-- APK manifest readback: `org.openclaw.classroom.yolo`, latest version `0.2.0/code3`, HEADSET_CAMERA and USE_SCENE permissions present.
+- APK manifest readback: `org.openclaw.classroom.yolo`, latest version `0.3.0/code4`, HEADSET_CAMERA and USE_SCENE permissions present.
 - Browser demo video: actual captured UI, 1280×900, 13.24 seconds, 331 decoded frames; input is labeled TEST IMAGE (NOT LIVE QUEST). First/middle/end frames visually inspected.
 
 ## Quest 3 actual acceptance — native 0.1.1/code2
@@ -39,11 +39,27 @@ Existing imported implementations remain unchanged.
 - Initial launcher-style CLI request did not start this sample and left the previous app/OS room-position dialog visible; that recording is not feature acceptance. A serial-bound direct component cold launch succeeded and the second recording/logs above belong to this sample's new PID. For automated launch, use `am start -W -n org.openclaw.classroom.yolo/com.unity3d.player.appui.AppUIGameActivity`, without adding launcher-category flags.
 - APK SHA256: `61168a4cf9946c6bd8794949e3fa75912f1b2b19fbe164673c02158ee3140402`.
 
+## Quest 3 session-anchor label acceptance — native 0.3.0/code4
+
+- Unity C# compilation and Android ARM64/IL2CPP build passed; in-place installation of version 0.3.0/code4 passed. HEADSET_CAMERA, USE_SCENE, and USE_ANCHOR_API permissions were granted.
+- Actual second cold launch, new PID10006: **57 real headset-camera inference samples**, median pipeline turnaround **271.12ms** on built-in GPUCompute. Ready native anchors progressed from 0 to 4,5,6,7.
+- **7 create requests, 7 localized native anchors with UUIDs, 167 association events, 206 pose-log events, zero logged creation failures.** Counts describe this finite run, not object-detection accuracy or a general tracking benchmark.
+- Developer launch option froze observations after the real-observation interval. Exactly one `observations_paused` event identified the developer timer. Final pose logs retained the same **7 native UUIDs**, `visible=True`, and fixed `inference_frame=57`, with last-seen ages 17–20.51s. This verifies session label retention after inference stopped; it is not a physical A-button test.
+- Anchor roots are created once at measured detection-center depth hits. Reassociated detections update confidence/last-seen metadata, not root position. Only child text rotates. Native `Localized` and `IsTracked` gate visibility; pending/failed anchors are neither displayed nor counted ready.
+- Labels are session-local. Same-class proximity association is not general moving-object identity tracking, and no anchor is saved or loaded across relaunches.
+- Headset was stationary. The run does **not** quantitatively verify moving-head alignment or physically moved-object tracking. Retention logs alone do not establish either.
+- First launch/take showed the OS Finding position in room dialog, lost app focus, and produced zero inferences/anchors. It is explicitly excluded from feature acceptance. The second cold-launch logs above are the accepted run.
+- Actual 0.3.0 preview: **22.020s, 768×822, 738 decoded frames**. First/middle/last frames were visually inspected. People move in the room while labels remain pinned to initial locations; that is not moving-object tracking. Overlapping/duplicate class labels are a known limitation of class/proximity association.
+- Maximum logged stationary anchor-coordinate delta across the 206 pose samples was **0.000361m**. This is numerical stability in a stationary tracking coordinate system, not measured physical alignment accuracy.
+- Built/published source SHA256: QuestYolo.cs `02a59da3e57c1a096bdaab98705b7e5ec010ea8f12d0b630012435dea28c7a8a`; ClassroomBuild.cs `ed3876cc0a52b3e832f545ad14b1f4d62cd87285ddef390457bea0e9a4d93090`.
+- APK SHA256: `a107fddf910e40ae739c7a5040e6550608d9ac92a9ddc187685c9119d200d060`. Raw/preview video and runtime/summary/analysis evidence digests are in `artifacts.json`; their media/log bytes remain outside Git.
+- Version 0.2.0 planar-outline timings and media above are historical, not measurements of 0.3.0. Native 0.3.0 uses label-only native anchors, not per-inference planar box recreation.
+
 ## Still unverified
 
 - **WebXR on the headset**, browser camera availability/retention during immersive mode and browser performance are not tested by the native acceptance above.
 - Physical controller A pause/resume, real head-motion comfort, measured moving-head alignment accuracy, long-duration heat/battery behavior and USB physical-unplug operation remain unverified.
-- WebXR remains a camera-preview panel. Native0.2.0 uses calibrated rays and measured center depth, but box corners lie on an approximate depth plane: they are not recovered object geometry or persistent anchors. Center rays can hit background; model errors, camera/depth timing and inference delay can cause misalignment.
+- WebXR remains a camera-preview panel. Historical native0.2.0 used an approximate corner plane; native0.3.0 instead pins label-only content at a native session anchor. Neither recovers exact object geometry or saves anchors across relaunches. Center rays can hit background; model errors and camera/depth timing can pin the wrong surface.
 
 ## Evidence and recovery
 

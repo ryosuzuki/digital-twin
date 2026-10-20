@@ -21,13 +21,31 @@ public sealed class QuestYolo : MonoBehaviour
     Tensor<float> input;
     RenderTexture snapshot;
     Text status;
-    Material lineMaterial;
     Pose capturedPose;
-    float lastDrawTime;
     int depthHits;
     string[] labels;
     bool paused;
-    readonly List<GameObject> annotations = new();
+    [Range(.1f, 2f)] public float associationRadius = .65f;
+    [Range(5, 120)] public float retentionSeconds = 30;
+    const int MaxAnchors = 20;
+    readonly List<SpatialObject> objects = new();
+    int nextId = 1;
+    int inferenceFrame;
+    float lastTelemetry;
+    float pauseStarted;
+    float demoFreezeAfter;
+    float firstInferenceAt = -1f;
+    bool demoFreezeTriggered;
+    sealed class SpatialObject
+    {
+        public int id, cls;
+        public float score, lastSeen, requestedAt;
+        public Vector3 requestedPosition;
+        public GameObject root, content;
+        public OVRSpatialAnchor anchor;
+        public Text label;
+        public bool localizedReported, failed, visible;
+    }
     struct Box { public float x,y,w,h,score; public int cls; }
 
     IEnumerator Start()
@@ -43,10 +61,18 @@ public sealed class QuestYolo : MonoBehaviour
         status = NewText(hud.transform, "Waiting for camera / environment depth…", 22);
         status.alignment = TextAnchor.MiddleCenter;
         status.rectTransform.sizeDelta = new Vector2(1000, 90);
-        lineMaterial = new Material(Shader.Find("Sprites/Default"));
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission("com.oculus.permission.USE_SCENE"))
             UnityEngine.Android.Permission.RequestUserPermission("com.oculus.permission.USE_SCENE");
+#endif
+        // Optional developer demonstration: real observations first, then freeze inference, never fake detections.
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try {
+            using var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            using var activity = player.GetStatic<AndroidJavaObject>("currentActivity");
+            using var intent = activity.Call<AndroidJavaObject>("getIntent");
+            demoFreezeAfter = Mathf.Max(0, intent.Call<float>("getFloatExtra", "classroom_demo_freeze_after", 0f));
+        } catch (Exception e) { Debug.LogWarning("QUEST_ANCHOR demo_intent_unavailable=" + e.Message); }
 #endif
         OVRPermissionsRequester.Request(new[] { OVRPermissionsRequester.Permission.PassthroughCameraAccess });
         try { worker = new Worker(ModelLoader.Load(modelAsset), backend); }
@@ -58,8 +84,8 @@ public sealed class QuestYolo : MonoBehaviour
         {
             if (paused || !Application.isFocused || !cameraAccess.IsPlaying || !OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head))
             {
-                status.text = paused ? "Paused · A to resume" : "Waiting for focus / camera / positional tracking";
-                ClearBoxes(); yield return null; continue;
+                status.text = paused ? $"OBSERVATIONS FROZEN · {ReadyCount()} tracked anchors · A resume / B clear" : "Waiting for focus / camera / positional tracking";
+                yield return null; continue;
             }
             // Cache the exposure-time camera pose, not the head pose after inference.
             capturedPose = cameraAccess.GetCameraPose();
@@ -72,17 +98,93 @@ public sealed class QuestYolo : MonoBehaviour
             while (!awaiter.IsCompleted) yield return null;
             using var output = awaiter.GetResult();
             var boxes = Decode(output);
-            if (!paused && Application.isFocused && OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head)) Draw(boxes); else ClearBoxes();
+            if (!paused && Application.isFocused && OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head)) Observe(boxes);
             double ms = (Time.realtimeSinceStartupAsDouble-started)*1000;
-            status.text = $"LOCAL YOLO · {ms:F0} ms · {depthHits} spatial labels\nFirst-person passthrough · A pause/resume";
-            Debug.Log($"QUEST_YOLO backend={backend} inference_ms={ms:F2} count={boxes.Count} source=headset_camera view=first_person depth_hits={depthHits} tracked={OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head)}");
+            inferenceFrame++;
+            status.text = $"LOCAL YOLO · {ms:F0} ms · {ReadyCount()} tracked anchors · {depthHits} depth hits\nCenter-hit labels · A freeze/resume · B clear";
+            Debug.Log($"QUEST_YOLO backend={backend} inference_ms={ms:F2} count={boxes.Count} source=headset_camera view=anchored_labels frame={inferenceFrame} anchors={ReadyCount()} depth_hits={depthHits} tracked={OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head)}");
             yield return new WaitForSecondsRealtime(Mathf.Max(0, 1/detectionHz-(float)(ms/1000)));
         }
     }
-    void Update() {
-        if (OVRInput.GetDown(OVRInput.RawButton.A)) paused = !paused;
-        if (paused || !Application.isFocused || Time.realtimeSinceStartup - lastDrawTime > .85f
-            || !OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head)) ClearBoxes();
+    bool HeadTracked() => OVRPlugin.GetNodePositionTracked(OVRPlugin.Node.Head);
+    int ReadyCount()
+    {
+        int count = 0;
+        foreach (var item in objects)
+            if (!item.failed && item.root != null && item.anchor != null && item.anchor.Localized && item.anchor.IsTracked) count++;
+        return count;
+    }
+    void Update()
+    {
+        float now = Time.realtimeSinceStartup;
+        if (OVRInput.GetDown(OVRInput.RawButton.A)) SetPaused(!paused, "button_a");
+        if (inferenceFrame > 0 && firstInferenceAt < 0) firstInferenceAt = now;
+        if (demoFreezeAfter > 0 && !demoFreezeTriggered && firstInferenceAt >= 0 && now-firstInferenceAt >= demoFreezeAfter)
+        {
+            demoFreezeTriggered = true;
+            SetPaused(true, "developer_demo_timer");
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.B)) ClearAnchors("user_clear");
+        bool worldVisible = Application.isFocused && HeadTracked();
+        for (int i = objects.Count - 1; i >= 0; i--)
+        {
+            var item = objects[i];
+            if (item.root == null) { objects.RemoveAt(i); continue; }
+            if (!item.failed && !item.localizedReported &&
+                (item.anchor == null || now - item.requestedAt > 10f))
+            {
+                item.failed = true;
+                Debug.LogWarning($"QUEST_ANCHOR event=create_failed id={item.id} class={item.cls} pending_s={now-item.requestedAt:F2}");
+            }
+            bool ready = !item.failed && item.anchor != null && item.anchor.Localized && item.anchor.IsTracked;
+            if (ready && !item.localizedReported)
+            {
+                item.localizedReported = true;
+                Debug.Log($"QUEST_ANCHOR event=localized id={item.id} uuid={item.anchor.Uuid} position={V(item.root.transform.position)}");
+            }
+            bool show = ready && worldVisible;
+            if (item.visible != show)
+            {
+                item.visible = show; item.content.SetActive(show);
+                Debug.Log($"QUEST_ANCHOR event=visibility id={item.id} visible={show} localized={(item.anchor != null && item.anchor.Localized)} anchor_tracked={(item.anchor != null && item.anchor.IsTracked)} head_tracked={HeadTracked()}");
+            }
+            // Rotate only the child text. The anchor root position is never driven by the head or new detections.
+            if (show && Camera.main != null)
+            {
+                var direction = item.content.transform.position - Camera.main.transform.position;
+                if (direction.sqrMagnitude > .0001f)
+                    item.content.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            }
+            if ((item.failed && now-item.requestedAt > 15f) || (!paused && now-item.lastSeen > retentionSeconds))
+            {
+                Debug.Log($"QUEST_ANCHOR event=retired id={item.id} reason={(item.failed ? "create_failed" : "not_seen_timeout")}");
+                Destroy(item.root); objects.RemoveAt(i);
+            }
+        }
+        if (paused && status != null) status.text = $"OBSERVATIONS FROZEN · {ReadyCount()} tracked anchors\nLabels stay in place · A resume · B clear";
+        if (now - lastTelemetry > 1f)
+        {
+            lastTelemetry = now;
+            var head = Camera.main != null ? Camera.main.transform : transform;
+            foreach (var item in objects)
+                Debug.Log($"QUEST_ANCHOR event=pose id={item.id} uuid={(item.anchor != null ? item.anchor.Uuid.ToString() : "none")} position={V(item.root.transform.position)} requested={V(item.requestedPosition)} localized={(item.anchor != null && item.anchor.Localized)} anchor_tracked={(item.anchor != null && item.anchor.IsTracked)} visible={item.visible} age_s={now-item.lastSeen:F2} head_position={V(head.position)} head_rotation={V(head.eulerAngles)} head_tracked={HeadTracked()} inference_frame={inferenceFrame}");
+        }
+    }
+    void SetPaused(bool value, string reason)
+    {
+        if (paused == value) return;
+        float now = Time.realtimeSinceStartup;
+        paused = value;
+        if (paused) pauseStarted = now;
+        else foreach (var item in objects) item.lastSeen += now-pauseStarted;
+        Debug.Log($"QUEST_ANCHOR event=observations_paused paused={paused} reason={reason} anchors={ReadyCount()} inference_frame={inferenceFrame}");
+    }
+    static string V(Vector3 p) => FormattableString.Invariant($"({p.x:F4},{p.y:F4},{p.z:F4})");
+    void ClearAnchors(string reason)
+    {
+        foreach (var item in objects) if (item.root != null) Destroy(item.root);
+        objects.Clear();
+        Debug.Log($"QUEST_ANCHOR event=cleared reason={reason}");
     }
     List<Box> Decode(Tensor<float> t)
     {
@@ -101,43 +203,60 @@ public sealed class QuestYolo : MonoBehaviour
         return keep;
     }
     static float IoU(Box a,Box b){float area=Mathf.Max(0,Mathf.Min(a.x+a.w,b.x+b.w)-Mathf.Max(a.x,b.x))*Mathf.Max(0,Mathf.Min(a.y+a.h,b.y+b.h)-Mathf.Max(a.y,b.y));return area/Mathf.Max(1e-6f,a.w*a.h+b.w*b.h-area);}
-    void ClearBoxes(){foreach(var a in annotations)Destroy(a);annotations.Clear();}
-    void Draw(List<Box> boxes)
+    void Observe(List<Box> boxes)
     {
-        ClearBoxes(); depthHits = 0; lastDrawTime = Time.realtimeSinceStartup;
+        depthHits = 0;
         if (!EnvironmentRaycastManager.IsSupported || environmentRaycast == null) return;
+        var matched = new HashSet<int>();
         foreach (var b in boxes)
         {
             float left = Mathf.Clamp01(b.x), right = Mathf.Clamp01(b.x + b.w);
             float bottom = Mathf.Clamp01(1 - b.y - b.h), top = Mathf.Clamp01(1 - b.y);
             var ray = cameraAccess.ViewportPointToRay(new Vector2((left+right)/2, (bottom+top)/2), capturedPose);
-            // Never invent a distance if measured environment depth is unavailable.
             if (!environmentRaycast.Raycast(ray, out var hit, 12f)) continue;
             float distance = Vector3.Distance(capturedPose.position, hit.point);
             if (distance < .25f || distance > 12) continue;
-            var plane = new Plane(capturedPose.rotation * Vector3.forward, hit.point);
-            var uv = new [] {new Vector2(left,top), new Vector2(right,top), new Vector2(right,bottom), new Vector2(left,bottom)};
-            var corners = new Vector3[4]; bool valid = true;
-            for (int i=0; i<4; i++) {
-                var cornerRay = cameraAccess.ViewportPointToRay(uv[i], capturedPose);
-                if (!plane.Raycast(cornerRay, out float d) || d <= 0) { valid = false; break; }
-                corners[i] = cornerRay.GetPoint(d);
-            }
-            if (!valid) continue;
-            var go = new GameObject("SpatialDetection", typeof(LineRenderer)); annotations.Add(go);
-            var line = go.GetComponent<LineRenderer>(); line.sharedMaterial=lineMaterial;
-            line.useWorldSpace=true; line.loop=true; line.positionCount=4; line.SetPositions(corners);
-            line.startWidth=line.endWidth=Mathf.Clamp(distance*.0018f,.003f,.015f);
-            line.startColor=line.endColor=Color.green;
-            var labelGo = new GameObject("SpatialLabel",typeof(RectTransform),typeof(Canvas));
-            labelGo.transform.SetParent(go.transform,false); labelGo.GetComponent<Canvas>().renderMode=RenderMode.WorldSpace;
-            labelGo.transform.SetPositionAndRotation(corners[0],capturedPose.rotation);
-            labelGo.transform.localScale=Vector3.one * Mathf.Max(.0004f,distance*.00065f);
-            var text=NewText(labelGo.transform,$"{labels[b.cls].Trim()} {b.score:P0}",28);
-            text.rectTransform.pivot=new Vector2(0,0);text.rectTransform.sizeDelta=new Vector2(480,44);
             depthHits++;
+            SpatialObject nearest = null;
+            float bestDistance = associationRadius;
+            foreach (var item in objects)
+            {
+                if (item.cls != b.cls || item.failed || matched.Contains(item.id) || item.root == null) continue;
+                float delta = Vector3.Distance(item.root.transform.position, hit.point);
+                if (delta < bestDistance) { nearest = item; bestDistance = delta; }
+            }
+            if (nearest != null)
+            {
+                nearest.lastSeen = Time.realtimeSinceStartup; nearest.score = b.score;
+                matched.Add(nearest.id);
+                nearest.label.text = $"{labels[b.cls].Trim()} #{nearest.id} {b.score:P0}";
+                Debug.Log($"QUEST_ANCHOR event=associated id={nearest.id} observed={V(hit.point)} anchor_position={V(nearest.root.transform.position)} delta_m={bestDistance:F3} frame={inferenceFrame+1}");
+                continue; // Never reposition an existing anchor from a later 2D observation.
+            }
+            if (objects.Count >= MaxAnchors) continue;
+            var root = new GameObject("ObjectAnchor_" + nextId);
+            root.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
+            var itemNew = new SpatialObject {
+                id = nextId++, cls = b.cls, score = b.score,
+                lastSeen = Time.realtimeSinceStartup, requestedAt = Time.realtimeSinceStartup,
+                requestedPosition = hit.point, root = root
+            };
+            var content = new GameObject("CenterHitLabel", typeof(RectTransform), typeof(Canvas));
+            content.transform.SetParent(root.transform, false);
+            content.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+            content.transform.localPosition = Vector3.zero;
+            content.transform.localScale = Vector3.one * Mathf.Max(.0006f, distance*.00065f);
+            var text = NewText(content.transform, $"{labels[b.cls].Trim()} #{itemNew.id} {b.score:P0}", 30);
+            text.alignment = TextAnchor.MiddleCenter;
+            text.rectTransform.pivot = new Vector2(.5f,.5f);
+            text.rectTransform.sizeDelta = new Vector2(600,64);
+            itemNew.content = content; itemNew.label = text;
+            content.SetActive(false); // Pending/failed native anchors are not rendered or counted as localized.
+            objects.Add(itemNew); matched.Add(itemNew.id);
+            itemNew.anchor = root.AddComponent<OVRSpatialAnchor>();
+            Debug.Log($"QUEST_ANCHOR event=create_requested id={itemNew.id} class={b.cls} position={V(hit.point)} frame={inferenceFrame+1}");
         }
     }
     static Text NewText(Transform parent,string value,int fontSize){var go=new GameObject("Label",typeof(RectTransform),typeof(CanvasRenderer),typeof(Text));go.transform.SetParent(parent,false);var t=go.GetComponent<Text>();t.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");t.fontSize=fontSize;t.color=Color.green;t.text=value;t.raycastTarget=false;return t;}
-    void OnDestroy(){StopAllCoroutines();if(worker!=null){worker.PeekOutput()?.CompleteAllPendingOperations();worker.Dispose();}input?.Dispose();if(lineMaterial!=null)Destroy(lineMaterial);if(snapshot!=null){snapshot.Release();Destroy(snapshot);}}
+    void OnDestroy(){StopAllCoroutines();if(worker!=null){worker.PeekOutput()?.CompleteAllPendingOperations();worker.Dispose();}input?.Dispose();ClearAnchors("destroy");if(snapshot!=null){snapshot.Release();Destroy(snapshot);}}
 }

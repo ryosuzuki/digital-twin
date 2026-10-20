@@ -4,8 +4,8 @@ Two implementations run the same YOLOv9 model **without an external GPU or infer
 They target **Quest 3 / 3S**, not camera-API support for Quest 2 / Pro.
 
 - **Web:** ONNX Runtime Web WASM CPU inference on a readable camera or local image/video. WebXR displays the annotated preview on a panel inside the headset.
-- **Unity native:** Meta Passthrough Camera API supplies headset camera frames; Unity Inference Engine runs on the built-in GPU (GPUCompute) or CPU. **First-person passthrough** receives world-space outlines and labels, projected using calibrated camera rays and environment depth. No camera-preview panel is displayed.
-- YOLO returns classes and 2D boxes. The native implementation raycasts each box center into environment depth, then projects its corners onto a plane at that depth. This is not exact 3D object geometry, persistent anchoring, or a complete digital twin.
+- **Unity native:** Meta Passthrough Camera API supplies headset camera frames; Unity Inference Engine runs on the built-in GPU (GPUCompute) or CPU. **First-person passthrough** receives label-only annotations at calibrated center-ray depth hits. Version 0.3.0 attaches each label to a session-local native `OVRSpatialAnchor`; later detections update observations without repositioning that anchor. No camera-preview panel or bounding rectangle is displayed.
+- YOLO returns classes and 2D boxes. The native implementation raycasts each box center into environment depth and creates a native session anchor there. The text child billboards by rotation only. This is not exact 3D object geometry, moving-object tracking, saved cross-relaunch anchoring, or a complete digital twin.
 
 ## Illustrated walkthrough
 
@@ -40,6 +40,10 @@ For Quest distribution, run `npm run build` and host `dist/` on **trusted HTTPS*
 
 If browser camera access is unavailable, use Unity. Do not assume Raw Camera Access support.
 
+### Developer-only native retention demonstration
+
+A cold launch may pass Android float extra `classroom_demo_freeze_after` (default 0) to freeze observations after the specified seconds following the first real inference. The HUD explicitly reports OBSERVATIONS FROZEN. This changes observation timing, never fabricates detections. Normal launches do not auto-freeze. Logs distinguish the developer timer from physical A-button input.
+
 ### Repeat Web verification
 
 ```bash
@@ -64,9 +68,9 @@ The destination must not exist. Install Git LFS and Unity Hub Android Build Supp
 2. Run **Classroom > Prepare YOLO scene**.
 3. Review Meta > Tools > Project Setup Tool as needed. Headset camera permission is required.
 4. Run **Classroom > Build Android APK** to create `Builds/classroom-yolo.apk`.
-5. Install the dedicated `org.openclaw.classroom.yolo` package. The accepted first-person version is **0.2.0/code3**. Other applications are not modified.
+5. Install the dedicated `org.openclaw.classroom.yolo` package. The session-anchor implementation is **0.3.0/code4**; see VERIFICATION.md for actual device acceptance. The earlier plane-outline implementation was 0.2.0/code3. Other applications are not modified.
 6. On Quest, open Library > Unknown Sources > **Classroom Local YOLO**.
-7. Grant camera and spatial-data permissions. Outlines appear directly in normal passthrough. A pauses/resumes inference.
+7. Grant camera and spatial-data permissions. Labels appear directly in normal passthrough. A freezes/resumes observations while retaining anchors; B clears them.
 
 ```bash
 # Use the actual path of your Unity installation.
@@ -78,17 +82,17 @@ The default is the **built-in GPU**. For CPU, set `YOLO_CPU=1` in the build envi
 
 - Default requested maximum: 5Hz, one inference at a time. Inference update rate and XR rendering FPS are different.
 - Logs: `QUEST_YOLO backend=... inference_ms=... count=... source=headset_camera`.
-- Permission, focus, camera, or positional-tracking loss hides annotations. Missing depth also suppresses a detection; annotations expire after 0.85 seconds without updates.
+- Focus or positional-tracking loss hides labels without destroying their anchors. Pending, failed, unlocalized, or untracked native anchors are not displayed or counted as ready. No depth hit means no new anchor. Unobserved objects expire after 30 seconds; freezing observations retains them until resume or clear.
 - Performance depends on headset load, heat, and memory. Actual measurements are in [VERIFICATION.md](VERIFICATION.md).
-- The source camera-viewer Canvas is disabled. An environment-raycast Prefab is added. Exposure-time camera pose and calibrated `ViewportPointToRay` are used. Box corners lie on a camera-parallel plane through the center-depth hit, not an exact 3D boundary. Scene Mesh and saved anchors are not required. Inference delay, background center hits, and depth errors can still cause misalignment.
+- The source camera-viewer Canvas is disabled. An environment-raycast Prefab supplies depth hits using exposure-time camera pose and calibrated `ViewportPointToRay`. A root is placed once at the center hit, then receives `OVRSpatialAnchor`. Later same-class detections within the association radius update confidence/last-seen metadata, not the root position. Only child text rotates to face the viewer. Default association radius is 0.65m, maximum 20 anchors, retention 30s; proximity matching can confuse nearby same-class objects. Anchors remain session-local and are neither saved nor reloaded. Background center hits and depth errors can pin labels to the wrong surface.
 
 ## Classroom experiments
 
 1. Detect people, chairs, bottles, or other classes from the model's 80-class vocabulary.
 2. Compare thresholds 0.35 and 0.6 for false positives and missed detections.
 3. Compare requested 1Hz / 5Hz detection rates with rendering behavior.
-4. Compare CPU and built-in GPU logs on the same input.
-5. Contrast 2D detection with approximate localization using environment depth.
+4. Freeze observations with A and check that existing anchors remain. Resume with A; clear with B. Compare CPU/GPU in a separate experiment.
+5. Contrast 2D detection with a fixed session anchor from an approximate center-depth hit. Inspect stable IDs, native UUIDs, and headset pose in logs.
 
 ## Sources and licenses
 

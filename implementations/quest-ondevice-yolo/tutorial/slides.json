@@ -3,49 +3,49 @@
     "slide_id": "quest_lab_section",
     "title": "Build it: object-aware AR",
     "takeaway": "",
-    "notes": "Teaching extension: current implementation is local detection + approximate 3D localization. Object-bound menus are the XR-Objects-inspired next layer, not an implemented feature.",
+    "notes": "Teaching extension: current implementation is local detection + approximate 3D localization + session-local native anchors. Object-bound menus are the XR-Objects-inspired next layer, not an implemented feature.",
     "number": 38
   },
   {
     "slide_id": "quest_lab_demo",
     "title": "Recognize objects in first person",
     "takeaway": "Actual Quest 3 capture — no camera-preview panel, no external GPU.",
-    "notes": "Authentic frame from quest-firstperson-preview-020.mp4, native0.2.0, stationary Quest3. Left-eye compositor crop; not generated. Video source hash is recorded with artifacts.json. Person/chair/laptop labels are model predictions, not ground truth.",
+    "notes": "Authentic frame from the supplied version-matched device recording, native0.3.0, stationary Quest3. Left-eye compositor crop; not generated. Video source hash is recorded with artifacts.json. Labels are model predictions, not ground truth. Use a new0.3.0 device capture; never relabel0.2.0 footage.",
     "number": 39
   },
   {
     "slide_id": "quest_lab_video",
     "title": "Demo: on-headset inference",
-    "takeaway": "15-second real-device recording; the model runs on the headset.",
-    "notes": "Actual native0.2.0 Quest3 compositor recording. This is stationary-device evidence only. Moving-head alignment and temporal identity tracking are not established. Native Drive video uses same course audience as the deck; fallback link provided.",
+    "takeaway": "22-second real-device recording; the model runs on the headset.",
+    "notes": "Actual native0.3.0 Quest3 compositor recording. This is stationary-device evidence only. Moving-head alignment and temporal identity tracking are not established. Native Drive video uses same course audience as the deck; fallback link provided.",
     "number": 40
   },
   {
     "slide_id": "quest_lab_xrobjects",
-    "title": "From labels to XR-Objects",
-    "takeaway": "The goal is an interface attached to a real object — not just a box.",
-    "notes": "Related work: Augmented Object Intelligence with XR-Objects, Dogan et al., UIST2024, doi10.1145/3654777.3676379, https://xr-objects.github.io/. Original evaluated phone prototype uses ARFoundation/ARCore + on-device MediaPipe object detection and cloud PaLI. Diagram is a conceptual next step for this Quest sample; object menu, selection, LLM and actions are NOT implemented.",
+    "title": "From detections to anchored labels",
+    "takeaway": "Locate the object, then retain its label at a native spatial anchor.",
+    "notes": "Related work: Augmented Object Intelligence with XR-Objects, Dogan et al., UIST2024, doi10.1145/3654777.3676379, https://xr-objects.github.io/. Original evaluated phone prototype uses ARFoundation/ARCore + on-device MediaPipe object detection and cloud PaLI. Our immediate scope is detection, localization, and session-anchored labels. Menus, selection, LLM, and actions are not implemented or required here.",
     "number": 41
   },
   {
     "slide_id": "quest_lab_levels",
     "title": "Detection is not yet tracking",
     "takeaway": "Each additional capability needs a new representation.",
-    "notes": "Source: QuestYolo.cs Draw() destroys and recreates annotations each inference; no temporal IDs or persistent anchors. Ladder is a teaching classification, not a measured performance claim. Center ray surface point is not full 3D object center.",
+    "notes": "Source: QuestYolo.cs Observe() associates class/proximity observations with session-local OVRSpatialAnchor records. No root repositioning from later detections; child text rotates only. No general moving-object tracker or saved cross-relaunch anchors. Center ray surface point is not geometric object center.",
     "number": 42
   },
   {
     "slide_id": "quest_lab_pipeline",
     "title": "How it runs on the headset",
     "takeaway": "Pixels provide semantics; geometry places the result in the room.",
-    "notes": "Source QuestYolo.cs Start(), Decode(), Draw(). Snapshot resized640x640; YOLOv9 ONNX, class threshold.35 class-aware NMS.45, calibrated exposure-time camera pose. Environment depth used for center ray, corners projected on plane. Arrows show actual data flow; depth branch merges after inference.",
+    "notes": "Source QuestYolo.cs Start(), Decode(), Observe(), Update(). Snapshot640x640; YOLOv9 ONNX, confidence.35 class-aware NMS.45. Exposure-time center ray hits depth, new native anchor created once; same-class matching updates metadata only. Localized+IsTracked gates label visibility. No corner-plane boxes.",
     "number": 43
   },
   {
     "slide_id": "quest_lab_geometry",
-    "title": "A ray turns a pixel into a 3D point",
-    "takeaway": "Use the detection center — not the center of the headset display.",
-    "notes": "Conceptual geometry (not measured scale): captured camera position o and calibrated ViewportPointToRay direction d. EnvironmentRaycastManager.Raycast returns hit.point P=o+t*d. A camera-parallel plane through P supplies all four box corner intersections. Center may be background. No exact object mesh or geometric centroid is recovered.",
+    "title": "A center hit becomes a stable label",
+    "takeaway": "A native spatial anchor retains the measured location.",
+    "notes": "Native0.3.0: calibrated center ray from exposure-time camera pose hits environment depth P. A new independent root receives OVRSpatialAnchor once at P. Later associated detections update metadata, not root position. Only text child billboards. The initial hit can be background; session anchor is not moving-object tracking or saved cross-relaunch persistence.",
     "number": 44
   },
   {
@@ -59,7 +59,7 @@
     "slide_id": "quest_lab_code",
     "title": "The center-ray step in code",
     "takeaway": "Use camera calibration and the captured pose; do not guess a distance.",
-    "notes": "Excerpt from actual QuestYolo.cs Draw(). Requires configured PassthroughCameraAccess cameraAccess, EnvironmentRaycastManager environmentRaycast, exposure-time capturedPose, normalized box bounds. This excerpt is not standalone runnable code. Full setup and complete project generation linked below. If raycast fails no annotation is rendered.",
+    "notes": "Abbreviated excerpt from actual QuestYolo.cs Observe(). Requires configured PassthroughCameraAccess cameraAccess, EnvironmentRaycastManager environmentRaycast, exposure-time capturedPose, normalized box bounds. This excerpt is not standalone runnable code. Full setup and complete project generation linked below. If raycast fails no annotation is rendered.",
     "number": 46
   },
   {
@@ -71,23 +71,23 @@
   },
   {
     "slide_id": "quest_lab_evidence",
-    "title": "What the real-device test shows",
-    "takeaway": "Stationary Quest 3 · native 0.2.0 · one short acceptance run.",
-    "notes": "VERIFICATION.md actual0.2.0 acceptance:122 new-process inference samples, median pipeline271.61ms;121/122 samples had3–5 depth-backed annotations. Not per-object accuracy/depth success rate. Includes preprocessing/scheduling/readback/decode/draw until logging, not just neural model execution or XR FPS.14.954811s stereo video415decodedframes; preview left-eye crop. Motion alignment, physical A-button, long duration, physical unplug remain unverified.",
+    "title": "What the anchor-retention test shows",
+    "takeaway": "Stationary Quest 3 · native 0.3.0 · real detections, then freeze.",
+    "notes": "Actual0.3.0 second coldlaunchPID10006:57 inference samples median271.12ms;7 requested and7 localized native OVRSpatialAnchors,167association events,206pose samples,0creationfailures. Developer timer paused observations atframe56; one in-flight inference completedframe57, then frame57remained fixed while same7UUIDs were visible with last-seen ages up to20.51s. Logged stationarypositiondelta<=0.000361m is not physical alignment accuracy.22.020s actual preview768x822738decodedframes. Head motion/physical buttons remain unverified; people moving in room do not establish moving-object tracking. Initial OS positionfindingtake0inference excluded.",
     "number": 48
   },
   {
     "slide_id": "quest_lab_next",
-    "title": "Next: make each object actionable",
-    "takeaway": "An XR-Objects-inspired extension — not yet in this demo.",
-    "notes": "Proposed next layer, not implemented: class-aware temporal association and depth gated smoothing; stable object record; selection using hand/controller ray; contextual menu attached to measured object point; local actions first, optional remote reasoning separately disclosed. Original XR-Objects phone prototype uses cloud reasoning; our local YOLO claim does not imply local LLM. Semantic object point must remain distinguishable from actual mesh/anchor.",
+    "title": "Verify the label stays put",
+    "takeaway": "The immediate goal is a stable location, not an object menu.",
+    "notes": "Current0.3.0 features: real detector center ray into depth, native session anchor, label-only rendering, metadata association, rotation-only billboard. Verified stationary retention across updates and after developer-timer freeze. Next verification tasks, not claimed acceptance: physically rotate/move the headset and measure world alignment; test physical A/B buttons; investigate duplicate same-class labels. Saved cross-relaunch anchors and moving-object tracking are separate future scopes, not current features.",
     "number": 49
   },
   {
     "slide_id": "quest_lab_exercise",
     "title": "Try it, then change one layer",
     "takeaway": "Start from the working sample instead of rebuilding the SDK setup.",
-    "notes": "Reproduce via README: python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/new/quest-yolo-unity; open Unity6000.4.5f1; ClassroomPrepare then BuildAndroidAPK; install own org.openclaw.classroom.yolo. Existing demo installed0.2.0. Exercise extensions not accepted implementation. Repo publication main and exact source hashes verified separately.",
+    "notes": "Reproduce via README: python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/new/quest-yolo-unity; open Unity6000.4.5f1; ClassroomPrepare then BuildAndroidAPK; install own org.openclaw.classroom.yolo. Source targets0.3.0; see current verification for installed acceptance. Exercise extensions not accepted implementation. Repo publication main and exact source hashes verified separately.",
     "number": 50
   }
 ]

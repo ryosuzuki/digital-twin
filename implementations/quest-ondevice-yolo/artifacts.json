@@ -91,6 +91,36 @@
       "name": "quest-firstperson-runtime-020.log",
       "bytes": 424973,
       "sha256": "4b9010d232ad62641811dd4e46a159a278ebb90faf7227cd2961752c00cf479d"
+    },
+    {
+      "name": "classroom-yolo-030.apk",
+      "bytes": 77464312,
+      "sha256": "a107fddf910e40ae739c7a5040e6550608d9ac92a9ddc187685c9119d200d060"
+    },
+    {
+      "name": "quest-anchors-demo-030.mp4",
+      "bytes": 22533068,
+      "sha256": "de297fceb7fa32030de5c11a1350e13e2bfc92c38c953d74ab7cdf0b9c7ae5ec"
+    },
+    {
+      "name": "quest-anchors-preview-030.mp4",
+      "bytes": 1218894,
+      "sha256": "a62e76d869f6a937f21f60ce8b9b0ff23331e863ffad0e5ea46134b569d3e029"
+    },
+    {
+      "name": "quest-anchors-summary-030.json",
+      "bytes": 78097,
+      "sha256": "f5e073c788af73ef5cc4700e1fe2712af5d7ac2279b625e45721cfe9fff66313"
+    },
+    {
+      "name": "quest-anchors-runtime-030.log",
+      "bytes": 364321,
+      "sha256": "ecd0c7f8af9db1fe2f00376a893c74ad91f7fed43760a7f7c7b840f95e5a9d35"
+    },
+    {
+      "name": "quest-anchors-analysis-030.json",
+      "bytes": 3401,
+      "sha256": "f252b1a7d992e5c7f1724a27f6efe47d5fabc2307863e3f05130c52f9b382dfb"
     }
   ]
 }
