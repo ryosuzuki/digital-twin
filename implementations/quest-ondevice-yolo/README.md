@@ -4,8 +4,8 @@
 **Quest 3 / 3S向け**。Quest 2 / ProのカメラAPI対応を意味しません。
 
 - **Web**: ONNX Runtime WebのWASM CPU推論。読み取れるカメラ／ローカル画像・動画に検出枠を表示し、WebXRではそのプレビューをヘッドセット内パネルに表示します。
-- **Unity native**: MetaのPassthrough Camera APIから実カメラを取得し、Unity Inference Engineで本体GPU（GPUCompute）／CPU推論。カメラ画像と検出枠を同一フレームで表示します。
-- 検出は物体の種類と2D矩形です。3Dの距離・正確な位置・永続アンカー・Digital Twinの完成を主張しません。
+- **Unity native**: MetaのPassthrough Camera APIから実カメラを取得し、Unity Inference Engineで本体GPU（GPUCompute）／CPU推論。**一人称パススルー**に、カメラ校正＋環境深度で投影した検出枠・ラベルだけを重ねます。カメラプレビューパネルは表示しません。
+- YOLO自体の出力は物体の種類と2D矩形です。Unity版は矩形の中心を実環境の深度へレイキャストし、その深さの平面へ四隅を投影します。正確な3D物体形状・永続アンカー・Digital Twinの完成を主張しません。
 
 ## まずどちらを使う？
 
@@ -58,9 +58,9 @@ python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/n
 2. `Classroom > Prepare YOLO scene`を実行。
 3. 必要に応じMeta > Tools > Project Setup Toolの指摘を確認。実機のカメラ権限が必要です。
 4. `Classroom > Build Android APK`で`Builds/classroom-yolo.apk`を生成。
-5. 本サンプル専用の`org.openclaw.classroom.yolo`にインストール。現在の実機確認版は**0.1.1/code2**です。既存アプリは変更しません。
+5. 本サンプル専用の`org.openclaw.classroom.yolo`にインストール。現在の実機確認版は**0.2.0/code3（一人称版）**です。既存アプリは変更しません。
 6. Questのライブラリ → 提供元不明（Unknown Sources） → **Classroom Local YOLO**を開きます。
-7. カメラ許可後、映像上に検出枠。Aボタンで一時停止／再開。
+7. カメラ・空間データ許可後、通常のパススルー視界に検出枠。Aボタンで一時停止／再開。
 
 ```bash
 # 例: インストール済みUnityの実パスを使用
@@ -72,9 +72,9 @@ python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/n
 
 - 推論要求は既定最大5Hz、同時に1件だけ。推論FPSとXR描画FPSは別です。
 - `QUEST_YOLO backend=... inference_ms=... count=... source=headset_camera`をログ出力。
-- Permission / focus / camera待機中は検出枠を消します。
+- Permission / focus / camera / positional tracking待機中は検出枠を消します。深度が取得できない検出は描画せず、0.85秒以上更新されない枠も消します。
 - GPUの性能・熱・メモリ状況で速度は変わります。Quest上の速度実測は[検証状態](VERIFICATION.md)に別記します。
-- シーンはカメラビューアーを基にした**2D検出サンプル**です。Scene Meshやアンカーの保存を必須にしません。公式のMultiObjectDetectionシーンは元プロジェクトに残り、3Dレイキャスト実験はそちらで別途行えます。
+- シーンはカメラビューアーを基にしますが、そのCanvasを無効にしてプレビューを廃止し、環境レイキャストPrefabを追加します。露光時のカメラ姿勢と校正済みViewportPointToRayを使用。矩形は中心深度のカメラ平行平面に描かれるため、物体の正確な3D境界ではありません。Scene Meshや永続アンカーの保存は必須ではありません。推論遅延・中心が背景へ外れる場合・深度誤差によるずれは残ります。
 
 ## 授業での短い実験
 
@@ -82,7 +82,7 @@ python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/n
 2. 閾値0.35→0.6で誤検出と見落としの変化を見る。
 3. 推論1Hz / 5Hzで応答・描画の違いを見る。
 4. 同じカメラ入力でCPU / 内蔵GPUのログを比較する。
-5. 2D認識から3D位置が得られるわけではないことを確認する。
+5. 2D認識単独と、環境深度を加えた近似位置の違いを見る。
 
 ## 出典・ライセンス
 

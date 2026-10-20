@@ -56,6 +56,41 @@
       "name": "quest-native-screen-011.png",
       "bytes": 10033780,
       "sha256": "b3c24b03fc303860bc594591e508b41b3c55dc7d4cd66f33f2414ae03025304f"
+    },
+    {
+      "name": "classroom-yolo-020.apk",
+      "bytes": 77449228,
+      "sha256": "61168a4cf9946c6bd8794949e3fa75912f1b2b19fbe164673c02158ee3140402"
+    },
+    {
+      "name": "unity-firstperson-source-020.zip",
+      "bytes": 11896,
+      "sha256": "c80c031c8982bfbc275f24d1f56f65425e571ecedffbe19116588d5da3a4c00e"
+    },
+    {
+      "name": "quest-firstperson-demo-020.mp4",
+      "bytes": 12937683,
+      "sha256": "83bcc73ef748af151cd5a0480b20facc0f1910cd972d5d4e78ab560351d43d9d"
+    },
+    {
+      "name": "quest-firstperson-preview-020.mp4",
+      "bytes": 1049702,
+      "sha256": "905f5f25caaf18c6969a603a542bf4008c99021ce4961408cb32787117ddb296"
+    },
+    {
+      "name": "quest-firstperson-summary-020.json",
+      "bytes": 163526,
+      "sha256": "9cc16728b69cf389d263e4d9ba035dd242c7c1db4cd5e94968ad0a72b9e65f7b"
+    },
+    {
+      "name": "quest-firstperson-stereo-020.png",
+      "bytes": 10904464,
+      "sha256": "f32b7df4bb8f112f38a20c9e8e6875a3423f765e360cbf59dfc2ba3c25c52c3f"
+    },
+    {
+      "name": "quest-firstperson-runtime-020.log",
+      "bytes": 424973,
+      "sha256": "4b9010d232ad62641811dd4e46a159a278ebb90faf7227cd2961752c00cf479d"
     }
   ]
 }
