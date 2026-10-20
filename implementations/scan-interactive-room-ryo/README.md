@@ -19,7 +19,7 @@ Click the preview or a video title to play. Videos are Unlisted; original MP4 do
 
 Navigate the room, manipulate props, record and replay their motion.
 
-[Watch / download the original demo MP4](https://github.com/ryosuzuki/scan-interactive-room-ryo/releases/download/demo-archive-2026-10-08/interactive-room-walk-grab-animate.mp4) · [Demo files and provenance](docs/demo/README.md)
+[Watch the public recording on YouTube](https://youtu.be/t_sJEuC5TMw). Original private asset archives are not included in this source snapshot.
 
 Private desktop WebGL prototype using Ryo's actual 2026-10-08 iPad 3d Scanner App room scan (533,500 triangles and original 10K texture).
 

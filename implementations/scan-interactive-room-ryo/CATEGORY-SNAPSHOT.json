@@ -20,7 +20,11 @@
       "path": "README.md",
       "sha256": "ea998d3e95db87e967a398bdec5acf29306b2e7e913c80e9f7e0d3ca4de151ca",
       "sourceGitBlob": "a1844555a9b2417603953c5cdc1002261f04770a",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "575ee94afa077e7403efefe1e99d7dda7c295f2b79ea7ee518b6377d5d6a72f9",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "app.js",

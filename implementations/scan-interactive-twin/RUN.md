@@ -1,3 +1,3 @@
-# 実行
+# Run
 
-公開ソースのみの独立 snapshot。元 README の起動コマンドを参照してください。個人の部屋・アバター・録画は含みません。元の固定ローカルパスは `/path/to/local-assets` に置換済みです。ご自身の素材で指定箇所を設定してください。API機能には別途認証が必要。分類作業ではAPI呼出し・実機検証をしていません。各構成の制約は README を参照。
+This independent snapshot contains public source only. Follow the launch commands in the original README. Personal rooms, avatars, and recordings are not included. Original absolute asset paths have been replaced with `/path/to/local-assets`; configure the indicated locations with your own assets. API features require separate authentication. Source classification did not perform API calls or device testing. See each README for implementation-specific limitations.

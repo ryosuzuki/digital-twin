@@ -14,7 +14,11 @@
       "path": "README.md",
       "sha256": "c920f405734ad8139a6768fabc6b2713e3249eff43412f51b49b41dcebe8e4dc",
       "sourceGitBlob": "7ae21938682eb6350d2d6ae72c16cac5021773e8",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "b81e6f3f75f9331794ed1d43cc3c599fd898889500c2927990034bdcf1190b17",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/.gitignore",
@@ -26,7 +30,11 @@
       "path": "quest-spatial-studio/README.md",
       "sha256": "6f69a88a8ac03fa332743e896a8f0259f9679cbd5ec260dda7eda17562df5452",
       "sourceGitBlob": "f3abc835ef3b4ed7e336eebb9275e396809afa82",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "f783724fa9b3fa85ac050416de25f5164534864e1bb2650e9a10a5591786507f",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/START.command",
@@ -38,7 +46,11 @@
       "path": "quest-spatial-studio/docs/DEVELOPMENT.md",
       "sha256": "4ed3c6fc0319637fe1ad3ee38861c00832b425d251f68e32f093afade3f2f916",
       "sourceGitBlob": "a96108ac1e31aea0f9cea2ccf19696385feb53c3",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "73df2457a91d1d35bd4f058954e6e730349c1dc4424d009c84d2cd05672f68c0",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/docs/QUICKSTART.md",
@@ -68,7 +80,11 @@
       "path": "quest-spatial-studio/docs/figures/README.md",
       "sha256": "916e138dc3303264796debb97497a0532159ef12060ff283d127d96af4edb525",
       "sourceGitBlob": "2548dc8411991ef2ca60dad37a30d0d3898853a3",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "3c12782c67b81b37446f279464f0bb05dd9d9e8423d824003cec1542be69c458",
+        "reason": "Clarify excluded private assets and remove unavailable provenance link; original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/docs/new-take-demo.md",
@@ -182,7 +198,11 @@
       "path": "quest-spatial-studio/editor/object-memory.html",
       "sha256": "6165608723fc8070bde57190a609b29e487f6dee299466051d50e9ec40e90227",
       "sourceGitBlob": "a6dfb4a226bb694f013b8fc9fc687431ceb72898",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "2b7cd99795a0a1da2be00a8f4a2a503704d8c9087e400da8de3725af9f69c8fa",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/editor/object-room.html",
@@ -458,7 +478,11 @@
       "path": "quest-spatial-studio/editor/src/embedded-fifty-art.mjs",
       "sha256": "6ca768c1f47d6984b4f793e7c0c4bab33a2026182ab8f67160ba7c82709e4cfc",
       "sourceGitBlob": "7e12eb9311d72ce75a284af05e2e10fe69547850",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "a13e756e744f6bbfea51423510656e41eb7feaa4408277ecb39c05524d86bb4b",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/editor/src/embedded-fifty-catalog.mjs",
@@ -530,19 +554,31 @@
       "path": "quest-spatial-studio/editor/src/object-memory.mjs",
       "sha256": "c459efae33e36aa20cd0673df4ab662ea23573092bbbcbcc52cd5da417de8d11",
       "sourceGitBlob": "16e20afaee909420e5ac494f90219e56609aeec5",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "615518e6ca84d6dd553760c353e7081c5cca2541ef71b3748adc7275881b5bdc",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/editor/src/object-room.mjs",
       "sha256": "1a054818ee11eb95c8bf15bee12cde857072a8bca7bd838e9f0850daa812924a",
       "sourceGitBlob": "a12c13dd4c414eebd3f6259abae616bc7de7426a",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "27018715843b84394cd130e3f3f7d4c29bbc336319f6e028b4da029628055b50",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/editor/src/object-stream-base.mjs",
       "sha256": "13d2507dfc416fa7446c4bd06090e00b2dbd7f6b0a73cec2631aeee1b08266d4",
       "sourceGitBlob": "de670108caae86ca8017afe75735245633d56d9d",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "3f60434c2b1c6c3feb1319958d5bc5cd55c55a5a822f29753379526b97387065",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "quest-spatial-studio/editor/src/object-stream.mjs",
@@ -656,13 +692,21 @@
       "path": "spatial-object-memory/app.js",
       "sha256": "252a1f1342ee647cc1d316ab0202a3280c6cb31ef37ac5cb4c7a6bbcd42c1194",
       "sourceGitBlob": "55df58af2d0de2c4df8710c4ba955284d6168560",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "d7a37db8a8be85add0ed3eb70498c768739d61e0aa5ebcecf59db2a8f76ad01f",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "spatial-object-memory/index.html",
       "sha256": "aba8d92e988d38a77cb89ddf2a80e5fc4edac043f54c435a0da6fa0f23cbda0b",
       "sourceGitBlob": "2527cd3db0bbf48c47cb02a7d8dab8cb647859a0",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "71ba16fa964d5ae150e1e8500e04c5de73e3d5c099ddeece93b7b7aada863180",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "spatial-object-memory/launch.command",
@@ -686,7 +730,11 @@
       "path": "spatial-object-memory/record.mjs",
       "sha256": "369cabd77adc406b86bac21b5dc3a21d58ffff2be5dc687122c9e02e5b6c1049",
       "sourceGitBlob": "18722cd7da6c3fc0b0f596e3f346c48218b8a882",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "7406953f98e7ef9673f1d6b25b23e3862452ac2a471ddc36d56f6b621e3600e3",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "spatial-object-memory/server.mjs",

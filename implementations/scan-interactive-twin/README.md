@@ -19,7 +19,7 @@ Click the preview or a video title to play. Videos are Unlisted; original MP4 do
 
 First-person room navigation and manipulation of added virtual props.
 
-[Watch / download the original demo MP4](https://github.com/ryosuzuki/scan-interactive-twin/releases/download/demo-archive-2026-10-08/interactive-twin.mp4) · [Demo files and provenance](docs/demo/README.md)
+[Watch the public recording on YouTube](https://youtu.be/GS6aEhNLz3U). Original private asset archives are not included in this source snapshot.
 
 Local desktop prototype using Ryo's actual iPad 3d Scanner App room capture from 2026-10-08. The room is the original textured geometry converted to GLB, not a generated scene or enhanced reconstruction.
 

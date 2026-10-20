@@ -22,7 +22,7 @@ Click the preview or a video title to play. Videos are Unlisted; original MP4 do
 
 Fixed cutaway room overview with recorded observations and a depth-backed bottle track.
 
-[Watch / download the original demo MP4](https://github.com/ryosuzuki/spatial-memory-private-backup/releases/download/demo-archive-2026-10-08/room-memory-fixed-tracking.mp4) · [Demo files and provenance](docs/demo/README.md)
+[Watch the public recording on YouTube](https://youtu.be/NPMkpYoSQh8). Original private asset archives are not included in this source snapshot.
 
 Snapshot of the October 8, 2026 prototypes. Original working projects remain under `/path/to/local-assets`.
 

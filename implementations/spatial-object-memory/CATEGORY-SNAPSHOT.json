@@ -68,7 +68,11 @@
       "path": "src/object-stream-base.mjs",
       "sha256": "f0e654ce055e9b0347bd9bb736378a7bf9af126dd6ff320f46dbe841f55c2f7f",
       "sourceGitBlob": "797f026cd0d02b2e7308ac67eedc048a7097ff6d",
-      "sanitized": true
+      "sanitized": true,
+      "englishDerivative": {
+        "sha256": "823741229c6102e711a12e93c727ccc2c96b2b84413324cd040235654b2c3cab",
+        "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
+      }
     },
     {
       "path": "src/object-tracked.mjs",

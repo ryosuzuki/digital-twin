@@ -2,6 +2,24 @@
 
 A public source-classification monorepo that organizes pinned source snapshots without modifying or deleting their original repositories. Each implementation has its own directory. These are not integrated into a shared application or made API-compatible.
 
+## Demo links
+
+**Recordings (YouTube; not interactive browser deployments):**
+
+- [Real scanned room walkthrough](https://youtu.be/D2AYDvZM-WI) — Gaussian scan viewer.
+- [Spatial UI in a scanned room](https://youtu.be/y__D9akryNw).
+- [Interactive scanned digital twin](https://youtu.be/GS6aEhNLz3U).
+- [Scanned room: walk, grab, and animate](https://youtu.be/t_sJEuC5TMw).
+- [Quest object memory](https://youtu.be/ZYbokiDqQd0), [room object memory](https://youtu.be/Pfv_F02ohC4), [streaming](https://youtu.be/BhugEsihb9Q), and [fixed tracking](https://youtu.be/NPMkpYoSQh8).
+
+**Run interactive demos locally:**
+
+- [Home / Lab gateway](implementations/spatial-home-lab/README.md#run-immediately-with-synthetic-upstreams) — launch the fixture and gateway, then open [localhost:39800](http://127.0.0.1:39800/). The bundled fixture is synthetic; actual Home/Lab twins require the existing private services and assets.
+- [Object-memory replay](implementations/spatial-object-memory/RUN.md) — `npm ci && npm run fixture && npm start`, then [localhost:8833](http://127.0.0.1:8833/).
+- [Quest on-device YOLO: setup and verification](implementations/quest-ondevice-yolo/README.md) and [illustrated tutorial](implementations/quest-ondevice-yolo/TUTORIAL.md). Device installation is separate from the desktop replay.
+
+The local addresses work only after starting their servers; they are not public hosted demos. No new private room footage or camera URLs are published here.
+
 ## Where to start
 
 - [spatial-home-lab](implementations/spatial-home-lab/README.md) — **Our recent Home and Lab digital twins**, kept separate from the older scan snapshots: runnable local catalog, independent per-venue gateways, availability checks, and synthetic upstreams for a fresh clone. Connect your existing private Spatial services; room assets and camera configuration are not published.
@@ -23,7 +41,7 @@ Imported-snapshot verification covers source identity, JS/Python syntax, and res
 
 ## Reproducibility
 
-`source-index.json` and each `CATEGORY-SNAPSHOT.json` record source commits, Git blobs, SHA-256 digests, and public-source checks. Run `python3 scripts/verify-snapshots.py` to verify copied source identity. Supply your own assets; see ASSETS.md.
+`source-index.json` and each `CATEGORY-SNAPSHOT.json` record source commits, Git blobs, SHA-256 digests, and public-source checks. Run `python3 scripts/verify-snapshots.py` to verify copied source identity or explicitly recorded English UI derivatives. Original source digests and Git blobs remain immutable; `englishDerivative` records the translated file digest and reason without claiming byte-identical upstream source. Supply your own assets; see ASSETS.md.
 
 Integration target: main-integrated. Completion owner: category consolidation worker. Authoritative paths: files added to this repository. Original repository worktrees remain untouched.
 

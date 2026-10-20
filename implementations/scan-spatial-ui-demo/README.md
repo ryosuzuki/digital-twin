@@ -19,7 +19,7 @@ Click the preview or a video title to play. Videos are Unlisted; original MP4 do
 
 Place and edit text and objects on the real scanned surfaces.
 
-[Watch / download the original demo MP4](https://github.com/ryosuzuki/scan-spatial-ui-demo/releases/download/demo-archive-2026-10-08/spatial-ui-demo.mp4) · [Demo files and provenance](docs/demo/README.md)
+[Watch the public recording on YouTube](https://youtu.be/y__D9akryNw). Original private asset archives are not included in this source snapshot.
 
 Private editable 3D spatial-authoring demo built on Ryo’s actual iPad room scan from 2026-10-08. This is a minimal counterpart to the static scan authoring part of Ziru’s Intelligent Spatial Interface, not a fake video composite.
 

@@ -6,6 +6,9 @@ for m in root.rglob('CATEGORY-SNAPSHOT.json'):
  for f in data['files']:
   p=m.parent/f['path']
   assert p.is_file(),str(p)
-  assert hashlib.sha256(p.read_bytes()).hexdigest()==f['sha256'],str(p)
+  expected = f.get('englishDerivative', {}).get('sha256', f['sha256'])
+  assert hashlib.sha256(p.read_bytes()).hexdigest()==expected,str(p)
+  if 'englishDerivative' in f:
+   assert len(f['sha256']) == 64 and f['englishDerivative']['reason'],str(p)
   n+=1
-print('PASS source hashes:',n)
+print('PASS original source or explicitly recorded English-derivative hashes:',n)

@@ -19,7 +19,7 @@ Click the preview or a video title to play. Videos are Unlisted; original MP4 do
 
 Walkthrough of the original Scaniverse Gaussian room capture.
 
-[Watch / download the original demo MP4](https://github.com/ryosuzuki/scan-realistic-viewer/releases/download/demo-archive-2026-10-08/realistic-room-walkthrough.mp4) · [Demo files and provenance](docs/demo/README.md)
+[Watch the public recording on YouTube](https://youtu.be/D2AYDvZM-WI). Original private asset archives are not included in this source snapshot.
 
 Private local viewer of Ryo's actual Scaniverse capture, not a generated room.
 

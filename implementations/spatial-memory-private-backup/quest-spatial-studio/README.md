@@ -35,9 +35,9 @@ The recorded video on the left is synchronized with the 3D scene on the right. O
 
 
 
-From Ryo's October 2 **#daily-demo screen recording**: the recorded-camera composite and scanned-room twin share the same editable object. [Before/after at the same source frame](docs/editor-interaction-demo.md#latest-daily-demo-screen-recording)
+From Ryo's October 2 **#daily-demo screen recording**: the recorded-camera composite and scanned-room twin share the same editable object. [Before/after at the same source frame](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/docs/editor-interaction-demo.md#latest-daily-demo-screen-recording)
 
-[Controls and WebXR requirements](docs/QUICKSTART.md#debug-with-the-digital-twin)
+[Controls and WebXR requirements](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/docs/QUICKSTART.md#debug-with-the-digital-twin)
 
 ## New recording demonstration
 
@@ -83,7 +83,7 @@ Open `editor/room.html` and select `room-geometry.json` to explore measured mesh
 
 ## Quest app
 
-[Recording and installation instructions](docs/RECORDING.md) / [Recorder implementation](recorder/Assets/SpatialCapture/README.md)
+[Recording and installation instructions](docs/RECORDING.md) / [Recorder implementation](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder/Assets/SpatialCapture/README.md)
 
 The app is named **Spatial Capture**, with package ID `org.openclaw.spatialcapture`. It is separate from QuestRealityCapture and does not delete the original app's recordings.
 
@@ -101,4 +101,4 @@ Static occlusion using room meshes is implemented in the editor. Occlusion will 
 
 ## Attribution
 
-Recorder upstream: [t-34400/QuestRealityCapture](https://github.com/t-34400/QuestRealityCapture), snapshot `649c012a3d95363101aa7f9fe53d67c59cbecbec` (MIT; [original license](recorder/LICENSE) retained). Meta/Unity SDKs remain subject to their respective terms. Custom extensions are distinguished from the original implementation; this project does not claim to be an upstream contribution or an official product.
+Recorder upstream: [t-34400/QuestRealityCapture](https://github.com/t-34400/QuestRealityCapture), snapshot `649c012a3d95363101aa7f9fe53d67c59cbecbec` (MIT; [original license](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder/LICENSE) retained). Meta/Unity SDKs remain subject to their respective terms. Custom extensions are distinguished from the original implementation; this project does not claim to be an upstream contribution or an official product.
