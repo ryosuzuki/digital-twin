@@ -65,20 +65,20 @@ def slide(key,title,takeaway,notes,section=False):
  for i,s in [(sid+'_title',title),(sid+'_num',str(rows[-1]['number']))]:req.extend([{'deleteText':{'objectId':i,'textRange':{'type':'ALL'}}},{'insertText':{'objectId':i,'text':s}}])
  req.append({'deleteObject':{'objectId':sid+'_body'}})
  text(sid,takeaway,108,101,562,39,16)
- text(sid,'Classroom Local YOLO · native 0.3.0 · source + reproducible setup',108,378,562,16,9,color=TEAL,link=REPO)
+ text(sid,'Classroom Local YOLO · native 0.3.1 · source + reproducible setup',108,378,562,16,9,color=TEAL,link=REPO)
  return sid
 
 def photo(sid,x,y,w,h):req.append({'createImage':{'objectId':sid+'_photo','url':'https://drive.google.com/uc?export=view&id='+IMG,'elementProperties':geom(sid,x,y,w,h)}})
 
 s=slide('section','Build it: object-aware AR','', 'Teaching extension: current implementation is local detection + approximate 3D localization + session-local native anchors. Object-bound menus are the XR-Objects-inspired next layer, not an implemented feature.',True)
-s=slide('demo','Recognize objects in first person','Actual Quest 3 capture — no camera-preview panel, no external GPU.','Authentic frame from the supplied version-matched device recording, native0.3.0, stationary Quest3. Left-eye compositor crop; not generated. Video source hash is recorded with artifacts.json. Labels are model predictions, not ground truth. Use a new0.3.0 device capture; never relabel0.2.0 footage.')
+s=slide('demo','First-person labels: historical 0.3.0','Actual Quest 3 capture — historical fixed-anchor sample.','Authentic frame from the supplied version-matched device recording, native0.3.0, stationary Quest3. Left-eye compositor crop; not generated. Video source hash is recorded with artifacts.json. Labels are model predictions, not ground truth. Use a new0.3.0 device capture; never relabel0.2.0 footage.')
 photo(s,115,144,209,224)
 text(s,'See the room normally',355,151,300,31,21,True)
 text(s,'Passthrough is the background.\nOnly anchored text labels are virtual.',355,191,294,66,18)
 text(s,'Current result',355,272,294,26,15,True,color=TEAL)
-text(s,'Center-depth hit → session anchor.\nLater views do not reposition the label.',355,299,294,57,17)
+text(s,'Center-depth hit → session anchor.\nNew0.3.1: gated native-anchor replacement.',355,299,294,57,17)
 
-s=slide('video','Demo: on-headset inference','22-second real-device recording; the model runs on the headset.','Actual native0.3.0 Quest3 compositor recording. This is stationary-device evidence only. Moving-head alignment and temporal identity tracking are not established. Native Drive video uses same course audience as the deck; fallback link provided.')
+s=slide('video','Historical 0.3.0 retention demo','22-second real-device recording; not the 0.3.1 relocation test.','Actual native0.3.0 Quest3 compositor recording. This is stationary-device evidence only. Moving-head alignment and temporal identity tracking are not established. Native Drive video uses same course audience as the deck; fallback link provided.')
 req.append({'createVideo':{'objectId':s+'_video','source':'DRIVE','id':VID,'elementProperties':geom(s,118,142,210,225)}})
 text(s,'Watch for three things',357,157,290,31,21,True)
 text(s,'1  No floating camera screen\n\n2  Labels at measured surface hits\n\n3  Native anchors retained over time',357,200,295,145,18)
@@ -93,7 +93,7 @@ text(s,'SESSION ANCHOR',496,275,175,22,12,True,color=ORANGE)
 text(s,'A native anchor retains position; only the text child rotates.',112,315,550,35,20)
 text(s,'XR-Objects · UIST 2024 · original system ≠ standalone Quest port',112,353,550,20,10,color=TEAL,link='https://xr-objects.github.io/')
 
-s=slide('levels','Detection is not yet tracking','Each additional capability needs a new representation.','Source: QuestYolo.cs Observe() associates class/proximity observations with session-local OVRSpatialAnchor records. No root repositioning from later detections; child text rotates only. No general moving-object tracker or saved cross-relaunch anchors. Center ray surface point is not geometric object center.')
+s=slide('levels','Detection is not yet tracking','Each additional capability needs a new representation.','Source: QuestYolo.cs Observe() associates class/proximity observations with session-local OVRSpatialAnchor records. Native0.3.1 ignores <=.20m jitter, requires3consistent observations within.10m plus1scooldown, then creates a replacement native anchor. Old content stays until replacementLocalizes+Tracks; child text billboards only. Adaptive evidencegap=max(1s,3xinferencecadence). No general moving-object tracker or saved cross-relaunch anchors. Center ray surface point is not geometric object center.')
 levels=[('2D detection','class + confidence + image rectangle','DONE'),('3D localization','calibrated ray + depth → surface point','DONE / APPROX.'),('Session label anchor','native anchor + retained location','IMPLEMENTED'),('Saved / moving tracks','cross-relaunch or moving objects','NOT IMPLEMENTED')]
 for j,(a,b,c) in enumerate(levels):
  y=148+j*53;text(s,a,110,y,158,44,17,True,fill=PALE if j<3 else GRAY);text(s,b,280,y+3,280,43,15);text(s,c,570,y+5,100,35,11,True,color=TEAL if j<3 else ORANGE)
@@ -104,14 +104,14 @@ for x,y,a,b in nodes:text(s,a,x,y,174,47,17,True,fill=PALE);text(s,b,x,y+48,174,
 for a,b,c,d in [(285,179,300,179),(478,179,493,179),(583,236,583,259),(493,286,481,286),(300,286,288,286)]:line(s,a,b,c,d,arrow=True)
 text(s,'Environment depth',299,355,183,20,11,True,color=TEAL);line(s,390,351,390,316,arrow=True)
 
-s=slide('geometry','A center hit becomes a stable label','A native spatial anchor retains the measured location.','Native0.3.0: calibrated center ray from exposure-time camera pose hits environment depth P. A new independent root receives OVRSpatialAnchor once at P. Later associated detections update metadata, not root position. Only text child billboards. The initial hit can be background; session anchor is not moving-object tracking or saved cross-relaunch persistence.')
+s=slide('geometry','A center hit becomes a stable label','A native spatial anchor retains the measured location.','Native0.3.1: calibrated center ray from exposure-time camera pose hits environment depth P. A new independent root receives OVRSpatialAnchor once at P. Later detections inside the deadband update metadata only; confirmed larger shifts replace the native anchor without dragging its transform. Only text child billboards. The initial hit can be background; session anchor is not moving-object tracking or saved cross-relaunch persistence.')
 text(s,'Exposure-time\ncamera pose',110,181,135,55,16,True)
 text(s,'o',239,225,22,26,17,True,color=TEAL)
 line(s,265,236,500,227,arrow=True)
 text(s,'P',503,211,30,27,18,True,color=ORANGE)
 text(s,'Native anchor\n+ centered label',540,205,128,63,15)
 text(s,'P = o + t · d',110,294,280,30,21,True,color=TEAL)
-text(s,'Place once. Retain the anchor. Rotate only child text.\nNo camera-following position or per-frame box recreation.',110,334,550,39,16)
+text(s,'Ignore small jitter. Confirm a change. Swap native anchors.\nOld label stays until replacement is localized and tracked.',110,334,550,39,16)
 text(s,'center ray',299,204,130,23,13,color=TEAL)
 
 s=slide('stack','What we used','A reproducible Unity project, built from a pinned Meta sample.','Source README.md, scripts/prepare-unity.py, unity/ClassroomBuild.cs. Unity6000.4.5f1, MRUK85.0.0, InferenceEngine2.6.1 OpenXR1.16.1. Meta source pinned3baac1a1a53aa00af3f639425914f14238a97f84. Camera API support scoped to Quest3/3S; physical test Quest3 only. Camera+spatial data permissions required.')
@@ -131,17 +131,17 @@ text(s,'UNITY NATIVE — CURRENT',110,150,270,39,16,True,fill=PALE);text(s,'WEBX
 text(s,'Headset camera + calibrated rays\n\nGPUCompute on Quest\n\nEnvironment-depth placement\n\nSession anchor labels; see verification',111,198,269,155,16)
 text(s,'Readable camera / file input\n\nONNX Runtime Web · WASM CPU\n\nPreview panel inside WebXR\n\nQuest browser path unverified',400,198,269,155,16)
 
-s=slide('evidence','What the anchor-retention test shows','Stationary Quest 3 · native 0.3.0 · real detections, then freeze.','Actual0.3.0 second coldlaunchPID10006:57 inference samples median271.12ms;7 requested and7 localized native OVRSpatialAnchors,167association events,206pose samples,0creationfailures. Developer timer paused observations atframe56; one in-flight inference completedframe57, then frame57remained fixed while same7UUIDs were visible with last-seen ages up to20.51s. Logged stationarypositiondelta<=0.000361m is not physical alignment accuracy.22.020s actual preview768x822738decodedframes. Head motion/physical buttons remain unverified; people moving in room do not establish moving-object tracking. Initial OS positionfindingtake0inference excluded.')
-for x,a,b in [(110,'271.12 ms','median pipeline turnaround'),(303,'57','real inference samples'),(496,'7','localized native anchors')]:text(s,a,x,159,174,56,26,True,fill=PALE);text(s,b,x,224,174,48,14)
-text(s,'After freeze: same UUIDs, visible labels, no new detections.',111,288,550,31,18,True)
-text(s,'Session retention verified. Not a moving-head accuracy test.\nClass/proximity association can duplicate or confuse objects.',111,329,550,43,16)
+s=slide('evidence','Confirmed changes update the native anchor','Stationary Quest 3 · final adaptive 0.3.1 · actual live detections.','Final0.3.1 PID14602 bounded log:94 real inference samples median273.295ms,4–6 ready anchors,327 associations,125poses,4replacementrequests and4successful relocatedevents,0replacement/createfailures,0freezeevents. Early creationeventsclipped;2visiblecreationsareNOTtotal. ActualrecordIDretainedwhileUUID/locationchangesvia native replacement. Stationaryheadsetlivecamera, NOT controlledmovingobjectaccuracy or measuredheadalignment. Initialprivateiteration slow2–4scadenceexposedfixed1sgapbug;finaladaptivegap and buildregressionshandle2–4scadence. No externalGPU.')
+for x,a,b in [(110,'273.30 ms','median pipeline turnaround'),(303,'94','real inference samples'),(496,'4 / 4','native replacements completed')]:text(s,a,x,159,174,56,26,True,fill=PALE);text(s,b,x,224,174,48,14)
+text(s,'Same record ID; new native UUID after a confirmed change.',111,288,550,31,18,True)
+text(s,'Not controlled moving-object accuracy. Class/proximity can\nmisassociate objects; large jumps may create a new record.',111,329,550,43,16)
 
-s=slide('next','Verify the label stays put','The immediate goal is a stable location, not an object menu.','Current0.3.0 features: real detector center ray into depth, native session anchor, label-only rendering, metadata association, rotation-only billboard. Verified stationary retention across updates and after developer-timer freeze. Next verification tasks, not claimed acceptance: physically rotate/move the headset and measure world alignment; test physical A/B buttons; investigate duplicate same-class labels. Saved cross-relaunch anchors and moving-object tracking are separate future scopes, not current features.')
-for j,(a,b) in enumerate([('Check retention','Compare record IDs, native UUIDs, and anchor positions.'),('Move the headset','Measure alignment under actual physical motion.'),('Keep scope precise','No moving-object tracking or saved anchors are claimed.')]):
+s=slide('next','Verify the label stays put','The immediate goal is a stable location, not an object menu.','Current0.3.1 features: real detector center ray into depth, native session anchor, label-only rendering, metadata association, rotation-only billboard. Verified4native replacements in actual live detection run; historical0.3.0 separately verifies freeze retention. Next verification tasks, not claimed acceptance: physically rotate/move the headset and measure world alignment; test physical A/B buttons; investigate duplicate same-class labels. Saved cross-relaunch anchors and moving-object tracking are separate future scopes, not current features.')
+for j,(a,b) in enumerate([('Reject jitter','Ignore <=0.20m changes; retain the existing anchor.'),('Confirm a change','Require 3 consistent hits, then safely swap native anchors.'),('Keep scope precise','No moving-object tracking or saved anchors are claimed.')]):
  y=151+j*64;text(s,str(j+1),110,y,39,39,20,True,fill=PALE);text(s,a,164,y,490,27,19,True);text(s,b,164,y+29,490,32,15)
 text(s,'A freezes observations while labels remain. B clears anchors.',111,350,550,24,14,color=TEAL)
 
-s=slide('exercise','Try it, then change one layer','Start from the working sample instead of rebuilding the SDK setup.','Reproduce via README: python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/new/quest-yolo-unity; open Unity6000.4.5f1; ClassroomPrepare then BuildAndroidAPK; install own org.openclaw.classroom.yolo. Source targets0.3.0; see current verification for installed acceptance. Exercise extensions not accepted implementation. Repo publication main and exact source hashes verified separately.')
+s=slide('exercise','Try it, then change one layer','Start from the working sample instead of rebuilding the SDK setup.','Reproduce via README: python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/new/quest-yolo-unity; open Unity6000.4.5f1; ClassroomPrepare then BuildAndroidAPK; install own org.openclaw.classroom.yolo. Source targets0.3.1; see current verification for installed acceptance. Exercise extensions not accepted implementation. Repo publication main and exact source hashes verified separately.')
 text(s,'1  Generate the pinned Unity project\n2  Prepare the scene and build Android APK\n3  Grant camera + spatial-data permissions\n4  Look at a chair; freeze and inspect the retained label',111,151,551,130,19)
 text(s,'Exercise: freeze detections, inspect retained labels',111,296,550,30,20,True,color=TEAL)
 text(s,'Compare native UUIDs and poses before and after observations stop.',111,331,550,25,16)

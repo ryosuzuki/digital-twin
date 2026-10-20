@@ -14,7 +14,7 @@ Existing imported implementations remain unchanged.
 - Root `python3 scripts/verify-snapshots.py`: **177 preserved source hashes passed**.
 - Unity **6000.4.5f1**, MRUK **85.0.0**, Unity Inference Engine **2.6.1**, OpenXR **1.16.1**: C# compiled; classroom scene generated; Android ARM64/IL2CPP development APK built successfully.
 - Built source hashes match the published QuestYolo.cs / ClassroomBuild.cs bytes. Source bootstrap was independently rerun into a fresh directory; custom source, dependency overrides and package lock match.
-- APK manifest readback: `org.openclaw.classroom.yolo`, latest version `0.3.0/code4`, HEADSET_CAMERA and USE_SCENE permissions present.
+- APK manifest readback: `org.openclaw.classroom.yolo`, latest version `0.3.1/code5`, HEADSET_CAMERA and USE_SCENE permissions present.
 - Browser demo video: actual captured UI, 1280×900, 13.24 seconds, 331 decoded frames; input is labeled TEST IMAGE (NOT LIVE QUEST). First/middle/end frames visually inspected.
 
 ## Quest 3 actual acceptance — native 0.1.1/code2
@@ -39,6 +39,19 @@ Existing imported implementations remain unchanged.
 - Initial launcher-style CLI request did not start this sample and left the previous app/OS room-position dialog visible; that recording is not feature acceptance. A serial-bound direct component cold launch succeeded and the second recording/logs above belong to this sample's new PID. For automated launch, use `am start -W -n org.openclaw.classroom.yolo/com.unity3d.player.appui.AppUIGameActivity`, without adding launcher-category flags.
 - APK SHA256: `61168a4cf9946c6bd8794949e3fa75912f1b2b19fbe164673c02158ee3140402`.
 
+## Quest 3 gated anchor-update acceptance — native 0.3.1/code5
+
+- The final adaptive-gap source compiled and built successfully; deterministic Unity build checks passed for small jitter, outlier reset, three-observation confirmation, cooldown, invalid depth, stale gaps, pause reset, and 2–4s cadence. Installation confirmed 0.3.1/code5.
+- Final source SHA256: QuestYolo.cs `33fbb77dee9aaf360d54a575fb7c403f4263571d7ffaa0d1f8601efb2fc0325c`; ClassroomBuild.cs `9c4585fb3e7f9a228265f212b269d05f586024491bbd94f88300bd35ef11b379`.
+- Actual final cold launch PID14602: **94 inference samples**, median pipeline turnaround **273.295ms**, ready-anchor counts 4,5,6; **327 associations, 125 pose events,4 relocation requests,4 successful native-anchor replacements, zero logged relocation/create failures, and no observation-freeze events**.
+- The bounded log excerpt starts after launch and clips early creation events. Its2 create/localized events are **not** the total number of anchors created. Ready-anchor counts and successful replacement events are reported separately; no missing startup count is invented.
+- Relocation preserves the semantic record ID while changing native UUID and world location. The replacement is localized/tracked before content swaps; an existing native-anchor transform is not manually dragged. Changes at or below0.20m are ignored; larger changes need 3 consistent observations within 0.10m and a 1s cooldown. Maximum observation gap is adaptive: max(1s,3×actual completed inference interval).
+- A superseded initial0.3.1 iteration exhibited2–4s processing cadence (first 6 samples median 3353.5ms). This exposed the incorrect fixed1s confirmation gap. The final source replaces it with the adaptive gap and adds slow-cadence regressions. Do not combine that initial run's timing with the final 94-sample measurement or claim a controlled optimization benchmark.
+- Final APK SHA256: `8023693920fd52b949ea3e7ac3282bae0b68a92b3c4aaecb63a9b4bd183918b0`. Final APK, recording, snapshot, runtime log and summary sizes/hashes are retained in `artifacts.json`; media/log bytes remain outside Git. The finite test restored proximity to `enabled=true / override=DISABLED`.
+- Final acceptance used live headset-camera detections with a **stationary headset**. Four native replacement events demonstrate the actual update path, not controlled moved-object accuracy or quantified moving-head alignment. Class/proximity association can misassociate, duplicate labels, or create a new record after a large jump.
+- User-recorded0.3.0 classroom views are separate evidence of that historical version; a 12s excerpt and two frames appear in the lecture. They do not establish final0.3.1 relocation accuracy. The complete original recording remains private and is not stored in Git.
+- This version retains label-only rendering and session-local anchors. Physical A/B input, controlled moving-head/moved-object accuracy, saved cross-relaunch anchors, and long-duration heat/battery remain unverified or unimplemented as appropriate. No menu/LLM work is included.
+
 ## Quest 3 session-anchor label acceptance — native 0.3.0/code4
 
 - Unity C# compilation and Android ARM64/IL2CPP build passed; in-place installation of version 0.3.0/code4 passed. HEADSET_CAMERA, USE_SCENE, and USE_ANCHOR_API permissions were granted.
@@ -59,7 +72,7 @@ Existing imported implementations remain unchanged.
 
 - **WebXR on the headset**, browser camera availability/retention during immersive mode and browser performance are not tested by the native acceptance above.
 - Physical controller A pause/resume, real head-motion comfort, measured moving-head alignment accuracy, long-duration heat/battery behavior and USB physical-unplug operation remain unverified.
-- WebXR remains a camera-preview panel. Historical native0.2.0 used an approximate corner plane; native0.3.0 instead pins label-only content at a native session anchor. Neither recovers exact object geometry or saves anchors across relaunches. Center rays can hit background; model errors and camera/depth timing can pin the wrong surface.
+- WebXR remains a camera-preview panel. Historical native 0.2.0 used an approximate corner plane; native 0.3.0 instead pins label-only content at a native session anchor. Neither recovers exact object geometry or saves anchors across relaunches. Center rays can hit background; model errors and camera/depth timing can pin the wrong surface.
 
 ## Evidence and recovery
 

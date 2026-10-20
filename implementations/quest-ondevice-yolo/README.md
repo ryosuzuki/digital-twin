@@ -4,7 +4,7 @@ Two implementations run the same YOLOv9 model **without an external GPU or infer
 They target **Quest 3 / 3S**, not camera-API support for Quest 2 / Pro.
 
 - **Web:** ONNX Runtime Web WASM CPU inference on a readable camera or local image/video. WebXR displays the annotated preview on a panel inside the headset.
-- **Unity native:** Meta Passthrough Camera API supplies headset camera frames; Unity Inference Engine runs on the built-in GPU (GPUCompute) or CPU. **First-person passthrough** receives label-only annotations at calibrated center-ray depth hits. Version 0.3.0 attaches each label to a session-local native `OVRSpatialAnchor`; later detections update observations without repositioning that anchor. No camera-preview panel or bounding rectangle is displayed.
+- **Unity native:** Meta Passthrough Camera API supplies headset camera frames; Unity Inference Engine runs on the built-in GPU (GPUCompute) or CPU. **First-person passthrough** receives label-only annotations at calibrated center-ray depth hits. Version 0.3.1 attaches each label to a session-local native `OVRSpatialAnchor`; small observation changes are ignored; confirmed larger changes replace the native anchor without dragging it. No camera-preview panel or bounding rectangle is displayed.
 - YOLO returns classes and 2D boxes. The native implementation raycasts each box center into environment depth and creates a native session anchor there. The text child billboards by rotation only. This is not exact 3D object geometry, moving-object tracking, saved cross-relaunch anchoring, or a complete digital twin.
 
 ## Illustrated walkthrough
@@ -68,7 +68,7 @@ The destination must not exist. Install Git LFS and Unity Hub Android Build Supp
 2. Run **Classroom > Prepare YOLO scene**.
 3. Review Meta > Tools > Project Setup Tool as needed. Headset camera permission is required.
 4. Run **Classroom > Build Android APK** to create `Builds/classroom-yolo.apk`.
-5. Install the dedicated `org.openclaw.classroom.yolo` package. The session-anchor implementation is **0.3.0/code4**; see VERIFICATION.md for actual device acceptance. The earlier plane-outline implementation was 0.2.0/code3. Other applications are not modified.
+5. Install the dedicated `org.openclaw.classroom.yolo` package. The gated-update implementation is **0.3.1/code5**; see VERIFICATION.md for actual device acceptance. The prior fixed-session-anchor version was 0.3.0/code4; the earlier plane-outline version was 0.2.0/code3. Other applications are not modified.
 6. On Quest, open Library > Unknown Sources > **Classroom Local YOLO**.
 7. Grant camera and spatial-data permissions. Labels appear directly in normal passthrough. A freezes/resumes observations while retaining anchors; B clears them.
 
@@ -84,7 +84,20 @@ The default is the **built-in GPU**. For CPU, set `YOLO_CPU=1` in the build envi
 - Logs: `QUEST_YOLO backend=... inference_ms=... count=... source=headset_camera`.
 - Focus or positional-tracking loss hides labels without destroying their anchors. Pending, failed, unlocalized, or untracked native anchors are not displayed or counted as ready. No depth hit means no new anchor. Unobserved objects expire after 30 seconds; freezing observations retains them until resume or clear.
 - Performance depends on headset load, heat, and memory. Actual measurements are in [VERIFICATION.md](VERIFICATION.md).
-- The source camera-viewer Canvas is disabled. An environment-raycast Prefab supplies depth hits using exposure-time camera pose and calibrated `ViewportPointToRay`. A root is placed once at the center hit, then receives `OVRSpatialAnchor`. Later same-class detections within the association radius update confidence/last-seen metadata, not the root position. Only child text rotates to face the viewer. Default association radius is 0.65m, maximum 20 anchors, retention 30s; proximity matching can confuse nearby same-class objects. Anchors remain session-local and are neither saved nor reloaded. Background center hits and depth errors can pin labels to the wrong surface.
+- The source camera-viewer Canvas is disabled. An environment-raycast Prefab supplies depth hits using exposure-time camera pose and calibrated `ViewportPointToRay`. A root is placed once at the center hit, then receives `OVRSpatialAnchor`. Later same-class detections within the association radius update confidence/last-seen metadata. Observations within the 0.20m deadband do not change position. Three observations within 0.10m of their candidate mean, subject to a 1s cooldown, confirm a larger change. A replacement native anchor is created at the confirmed mean; the old label/anchor remain until replacement localization/tracking succeeds, then content is swapped. Replacement timeout/failure keeps the old anchor. Only child text billboards; an existing native root is never dragged. Default association radius is 0.65m, maximum 20 anchors, retention 30s; proximity matching can confuse nearby same-class objects. Anchors remain session-local and are neither saved nor reloaded. Background center hits and depth errors can pin labels to the wrong surface.
+
+## Position-update gate (native 0.3.1)
+
+| Inspector setting | Default | Behavior |
+|---|---|---|
+| relocationDeadband | 0.20m | Ignore position changes at or below this distance |
+| relocationConsistency | 0.10m | Each new observation must agree with the candidate mean |
+| relocationConfirmations | 3 | Require consecutive consistent observations |
+| relocationCooldown | 1s | Minimum interval after anchor creation/update/failed replacement |
+| Confirmation gap | max(1s, 3×observed inference interval) | A longer per-object observation gap starts a new candidate; slow actual inference does not make confirmation impossible |
+| Replacement timeout | 5s | Keep the old anchor if replacement never becomes localized/tracked |
+
+Association remains same-class, one-to-one, within the 0.65m radius. Large jumps beyond that radius may create a new record; nearby same-class objects can be confused. `relocation_gate`, `relocation_requested`, `relocated`, and `relocation_failed` logs distinguish decisions from successful native-anchor swaps. A successful relocation preserves the record ID but changes native UUID. Build-time deterministic scenario checks cover small jitter, outlier reset, three-point confirmation, cooldown, invalid depth, observation gaps, and 2–4s inference cadence. Pause, focus/tracking loss, and camera waits reset candidate evidence. These checks are algorithm verification, not physical accuracy measurements.
 
 ## Classroom experiments
 
@@ -92,7 +105,7 @@ The default is the **built-in GPU**. For CPU, set `YOLO_CPU=1` in the build envi
 2. Compare thresholds 0.35 and 0.6 for false positives and missed detections.
 3. Compare requested 1Hz / 5Hz detection rates with rendering behavior.
 4. Freeze observations with A and check that existing anchors remain. Resume with A; clear with B. Compare CPU/GPU in a separate experiment.
-5. Contrast 2D detection with a fixed session anchor from an approximate center-depth hit. Inspect stable IDs, native UUIDs, and headset pose in logs.
+5. Compare small observation jitter with a confirmed position change. Inspect stable record IDs and relocation events; native UUID changes are expected after a successful replacement. This remains class/proximity association, not a general moving-object tracker.
 
 ## Sources and licenses
 

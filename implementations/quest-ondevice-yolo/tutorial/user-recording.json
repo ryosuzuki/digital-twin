@@ -1,0 +1,12 @@
+{
+  "slide_id": "quest_lab_user_views",
+  "source_native_version": "0.3.0",
+  "source_kind": "requester-provided headset recording",
+  "classroom_excerpt_seconds": 12,
+  "still_frame_times_seconds": [
+    2,
+    8
+  ],
+  "deck_url": "https://docs.google.com/presentation/d/1cSDat0MuJk7qmj2TtbPbHt5IGeLQUsle8kemzN639hY/edit#slide=id.quest_lab_user_views",
+  "notes": "Separate live slide appended to the base13-slide implementation walkthrough. Original full recording remains private; only authorized classroom excerpt and two views appear in the lecture. No raw media is stored in Git. This is historical0.3.0 footage, not controlled0.3.1 relocation or measured head-motion accuracy."
+}
