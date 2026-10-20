@@ -8,5 +8,18 @@
     8
   ],
   "deck_url": "https://docs.google.com/presentation/d/1cSDat0MuJk7qmj2TtbPbHt5IGeLQUsle8kemzN639hY/edit#slide=id.quest_lab_user_views",
-  "notes": "Separate live slide appended to the base13-slide implementation walkthrough. Original full recording remains private; only authorized classroom excerpt and two views appear in the lecture. No raw media is stored in Git. This is historical0.3.0 footage, not controlled0.3.1 relocation or measured head-motion accuracy."
+  "notes": "Separate live slide appended to the base13-slide implementation walkthrough. Original full recording remains private; only authorized classroom excerpt and two views appear in the lecture. No raw media is stored in Git. This is historical0.3.0 footage, not controlled0.3.1 relocation or measured head-motion accuracy.",
+  "youtube": {
+    "video_id": "x2HKa_wzCaI",
+    "url": "https://youtu.be/x2HKa_wzCaI",
+    "channel_id": "UCzVmdkztQXy0BwRRvxC1slw",
+    "title": "2026-10-20 Quest Spatial Object Labels - First-Person Demo",
+    "visibility": "unlisted",
+    "visibility_verification": "Saved YouTube Studio Details readback confirmed Unlisted; checks reported no issues.",
+    "audience_setting": "not made for kids",
+    "source": "Same authorized 12-second classroom excerpt from the requester-provided native0.3.0 recording; observations frozen.",
+    "verification_date": "2026-10-20",
+    "playback_verification": "Non-owner playback verification pending; no playback claim is made by this receipt.",
+    "scope_limit": "Historical0.3.0 frozen-label demo, not evidence of0.3.1 gated relocation or measured head-motion accuracy."
+  }
 }
