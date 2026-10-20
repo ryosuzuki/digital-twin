@@ -48,7 +48,7 @@
       "sourceGitBlob": "a96108ac1e31aea0f9cea2ccf19696385feb53c3",
       "sanitized": true,
       "englishDerivative": {
-        "sha256": "73df2457a91d1d35bd4f058954e6e730349c1dc4424d009c84d2cd05672f68c0",
+        "sha256": "1d10d7cf86cbb545ed0b8c3c6c8287660a37fd307ccc815ef67145a5d3b3c694",
         "reason": "English-language UI/documentation cleanup and repaired demo/source links. Multilingual lookup keys are preserved as Unicode escapes. Original source digest and Git blob remain unchanged."
       }
     },

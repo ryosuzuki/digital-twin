@@ -6,7 +6,7 @@
 
 | Location | Purpose |
 | --- | --- |
-| [recorder/](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder) | Unity project containing the upstream app and custom extensions |
+| [recorder/](https://github.com/ryosuzuki/quest-spatial-studio/tree/main/recorder) | Unity project containing the upstream app and custom extensions |
 | [SpatialCaptureExtras.cs](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder/Assets/SpatialCapture/SpatialCaptureExtras.cs) | Additional hand, room, and related capture |
 | [SpatialMicrophone.cs](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder/Assets/SpatialCapture/SpatialMicrophone.cs) | Microphone audio and timing metadata |
 | [RoomGeometryExport.cs](https://github.com/ryosuzuki/quest-spatial-studio/blob/main/recorder/Assets/SpatialCapture/RoomGeometryExport.cs) | Converts room geometry for Three.js |
