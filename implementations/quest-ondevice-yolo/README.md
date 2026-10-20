@@ -58,8 +58,9 @@ python3 implementations/quest-ondevice-yolo/scripts/prepare-unity.py /absolute/n
 2. `Classroom > Prepare YOLO scene`を実行。
 3. 必要に応じMeta > Tools > Project Setup Toolの指摘を確認。実機のカメラ権限が必要です。
 4. `Classroom > Build Android APK`で`Builds/classroom-yolo.apk`を生成。
-5. 本サンプル専用の`org.openclaw.classroom.yolo`にインストール。既存アプリは変更しません。
-6. カメラ許可後、映像上に検出枠。Aボタンで一時停止／再開。
+5. 本サンプル専用の`org.openclaw.classroom.yolo`にインストール。現在の実機確認版は**0.1.1/code2**です。既存アプリは変更しません。
+6. Questのライブラリ → 提供元不明（Unknown Sources） → **Classroom Local YOLO**を開きます。
+7. カメラ許可後、映像上に検出枠。Aボタンで一時停止／再開。
 
 ```bash
 # 例: インストール済みUnityの実パスを使用

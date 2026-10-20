@@ -3,14 +3,14 @@
   "artifact_directory": "~/Storage/outputs/quest-ondevice-yolo/2026-10-20/",
   "files": [
     {
-      "name": "classroom-yolo.apk",
-      "bytes": 103521581,
-      "sha256": "327e59b98ce7e7aa75f3032fff8855263fcca1ea10763c3655d7591146bcddc0"
+      "name": "classroom-yolo-011.apk",
+      "bytes": 77453100,
+      "sha256": "bdf08b5d5f8a92d146e54ae7c6fbc07f3025ef3ede7ce3fc902a2494441d0b2d"
     },
     {
-      "name": "unity-project.zip",
-      "bytes": 9956683,
-      "sha256": "1cce3819a5b28273e6e184fca9a23aedce7d6883f82230246c9c17e52bd12454"
+      "name": "unity-project-011.zip",
+      "bytes": 9956721,
+      "sha256": "8e833d8383badeb547257b6c9ef47056291b2e9759bf648ee36a785276f96222"
     },
     {
       "name": "web-static-site.zip",
@@ -31,6 +31,31 @@
       "name": "web-model-inference.png",
       "bytes": 765220,
       "sha256": "2e72dca178bc2720826f675408a0ed72afe89f8e157523dab097d6f1089ed2b8"
+    },
+    {
+      "name": "quest-native-demo-011.mp4",
+      "bytes": 28576933,
+      "sha256": "32aadd80e72976f40aba6297acbd3cb9b424dd0f92a9a1b0c8e3565c5e531d24"
+    },
+    {
+      "name": "quest-native-preview-011.mp4",
+      "bytes": 1442436,
+      "sha256": "660b47fd453754ed02c1004ceda0d7c7c38cb421e107106849c16b2198f52821"
+    },
+    {
+      "name": "quest-native-summary-011.json",
+      "bytes": 8541,
+      "sha256": "029931b0ab7abdebf028c27daa3304d3a99517e8e76505eab56a1785d9fb6114"
+    },
+    {
+      "name": "quest-native-samples-011.json",
+      "bytes": 5049,
+      "sha256": "5712c90fe0672a6721439cf40ecae5685906911ad9ab7ef17adcf915ae38b47a"
+    },
+    {
+      "name": "quest-native-screen-011.png",
+      "bytes": 10033780,
+      "sha256": "b3c24b03fc303860bc594591e508b41b3c55dc7d4cd66f33f2414ae03025304f"
     }
   ]
 }

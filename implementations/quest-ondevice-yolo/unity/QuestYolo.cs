@@ -28,10 +28,10 @@ public sealed class QuestYolo : MonoBehaviour
     IEnumerator Start()
     {
         labels = labelsAsset.text.Trim().Split('\n');
-        status = NewText(preview.rectTransform, "Waiting for headset camera permission…", 18);
+        status = NewText(preview.rectTransform, "Waiting for headset camera permission…", 32);
         status.rectTransform.anchorMin = status.rectTransform.anchorMax = new Vector2(.5f, 1);
         status.rectTransform.pivot = new Vector2(.5f, 1);
-        status.rectTransform.sizeDelta = new Vector2(640, 70);
+        status.rectTransform.sizeDelta = new Vector2(1280, 90);
         status.rectTransform.anchoredPosition = Vector2.zero;
         OVRPermissionsRequester.Request(new[] { OVRPermissionsRequester.Permission.PassthroughCameraAccess });
         try { worker = new Worker(ModelLoader.Load(modelAsset), backend); }
@@ -85,12 +85,22 @@ public sealed class QuestYolo : MonoBehaviour
     void Draw(List<Box> boxes)
     {
         ClearBoxes();var size=preview.rectTransform.rect.size;
-        foreach(var b in boxes){var go=new GameObject("Detection",typeof(RectTransform),typeof(CanvasRenderer),typeof(Image),typeof(Outline));go.transform.SetParent(preview.transform,false);annotations.Add(go);
+        foreach(var b in boxes){var go=new GameObject("Detection",typeof(RectTransform));go.transform.SetParent(preview.transform,false);annotations.Add(go);
             var r=(RectTransform)go.transform;r.anchorMin=r.anchorMax=new Vector2(0,1);r.pivot=new Vector2(0,1);r.anchoredPosition=new Vector2(b.x*size.x,-b.y*size.y);r.sizeDelta=new Vector2(b.w*size.x,b.h*size.y);
-            go.GetComponent<Image>().color=new Color(0,1,.5f,.04f);var outline=go.GetComponent<Outline>();outline.useGraphicAlpha=false;outline.effectColor=Color.green;outline.effectDistance=new Vector2(2,2);
-            var text=NewText(r,$"{labels[b.cls].Trim()} {b.score:P0}",16);text.rectTransform.anchorMin=text.rectTransform.anchorMax=new Vector2(0,1);text.rectTransform.pivot=new Vector2(0,1);text.rectTransform.sizeDelta=new Vector2(250,28);
+            Border(r,new Vector2(0,0),new Vector2(1,0),Vector2.zero,new Vector2(0,3));
+            Border(r,new Vector2(0,1),new Vector2(1,1),new Vector2(0,-3),Vector2.zero);
+            Border(r,new Vector2(0,0),new Vector2(0,1),Vector2.zero,new Vector2(3,0));
+            Border(r,new Vector2(1,0),new Vector2(1,1),new Vector2(-3,0),Vector2.zero);
+            var text=NewText(r,$"{labels[b.cls].Trim()} {b.score:P0}",32);text.rectTransform.anchorMin=text.rectTransform.anchorMax=new Vector2(0,1);text.rectTransform.pivot=new Vector2(0,1);text.rectTransform.sizeDelta=new Vector2(400,44);
         }
         status.transform.SetAsLastSibling();
+    }
+    static void Border(RectTransform parent,Vector2 min,Vector2 max,Vector2 offsetMin,Vector2 offsetMax)
+    {
+        var edge=new GameObject("Edge",typeof(RectTransform),typeof(CanvasRenderer),typeof(Image));
+        edge.transform.SetParent(parent,false);var r=(RectTransform)edge.transform;
+        r.anchorMin=min;r.anchorMax=max;r.offsetMin=offsetMin;r.offsetMax=offsetMax;
+        edge.GetComponent<Image>().color=Color.green;edge.GetComponent<Image>().raycastTarget=false;
     }
     static Text NewText(Transform parent,string value,int fontSize){var go=new GameObject("Label",typeof(RectTransform),typeof(CanvasRenderer),typeof(Text));go.transform.SetParent(parent,false);var t=go.GetComponent<Text>();t.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");t.fontSize=fontSize;t.color=Color.green;t.text=value;t.raycastTarget=false;return t;}
     void OnDestroy(){StopAllCoroutines();if(worker!=null){worker.PeekOutput()?.CompleteAllPendingOperations();worker.Dispose();}input?.Dispose();if(snapshot!=null){snapshot.Release();Destroy(snapshot);}}

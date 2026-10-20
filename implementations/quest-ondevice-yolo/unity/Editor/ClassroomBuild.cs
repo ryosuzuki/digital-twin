@@ -29,7 +29,7 @@ public static class ClassroomBuild
         EditorSceneManager.SaveScene(scene,"Assets/Classroom/QuestYolo.unity");
         EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene("Assets/Classroom/QuestYolo.unity",true)};
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android,"org.openclaw.classroom.yolo");
-        PlayerSettings.productName="Classroom Local YOLO";PlayerSettings.bundleVersion="0.1.0";PlayerSettings.Android.bundleVersionCode=1;
+        PlayerSettings.productName="Classroom Local YOLO";PlayerSettings.bundleVersion="0.1.1";PlayerSettings.Android.bundleVersionCode=2;
         PlayerSettings.Android.targetArchitectures=AndroidArchitecture.ARM64;
         PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Android,ScriptingImplementation.IL2CPP);
         AssetDatabase.SaveAssets();Debug.Log("CLASSROOM_SCENE_READY");
