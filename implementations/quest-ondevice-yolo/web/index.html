@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Quest • On-device vision</title
+  ><link rel="stylesheet" href="/src/style.css" />
+  <body>
+    <main>
+      <header>
+        <small>MIXED REALITY LAB / NO INFERENCE SERVER</small>
+        <h1>See. Detect. Locally.</h1>
+        <p>YOLO object detection on your own device.</p>
+      </header>
+      <section class="controls">
+        <button id="load">1 · Load model</button
+        ><select id="camera">
+          <option value="">Default camera</option></select
+        ><button id="start">2 · Start camera</button
+        ><button id="stop">Stop</button
+        ><label class="file"
+          >Test image / video<input
+            id="file"
+            type="file"
+            accept="image/*,video/*" /></label
+        ><button id="xr">Enter WebXR</button
+        ><button id="record">Record preview</button
+        ><button id="metrics">Save metrics</button>
+      </section>
+      <div id="status" role="status">
+        Load the model, then choose a camera or local test file.
+      </div>
+      <section class="stage">
+        <canvas id="preview" width="960" height="600"></canvas>
+        <aside>
+          <span id="source">NO CAMERA</span><strong id="latency">— ms</strong
+          ><span id="count">0 detections</span>
+          <p>Inference stays on this device. No images are uploaded.</p>
+          <p>
+            Boxes are 2D observations, not measured 3D positions or persistent
+            anchors.
+          </p>
+        </aside>
+      </section>
+      <p class="note">
+        Quest 3 / 3S: camera access depends on browser / OS permissions. A
+        visible passthrough background alone does not grant pixel access. WebXR
+        uses an in-headset camera-preview panel, not world-aligned boxes.
+      </p>
+      <video id="video" playsinline muted hidden></video>
+      <div id="xr-root"></div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

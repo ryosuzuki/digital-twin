@@ -1,0 +1,9 @@
+web/node_modules/
+web/dist/
+web/public/models/*
+web/public/ort/
+web/test-results/
+*.apk
+*.webm
+*.mp4
+__pycache__/

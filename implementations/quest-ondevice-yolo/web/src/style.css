@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #101922;
+  color: #edf5f8;
+  font: 16px system-ui;
+}
+main {
+  max-width: 1250px;
+  margin: 36px auto;
+  padding: 24px;
+}
+small {
+  letter-spacing: 0.2em;
+  color: #7be5c1;
+}
+h1 {
+  font-size: clamp(32px, 5vw, 62px);
+  margin: 14px 0;
+}
+header p,
+.note {
+  color: #abc0ce;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 28px 0;
+}
+button,
+select,
+.file {
+  border: 1px solid #416173;
+  border-radius: 12px;
+  background: #203647;
+  color: white;
+  padding: 12px;
+  cursor: pointer;
+}
+button:first-child {
+  background: #7be5c1;
+  color: #122a2d;
+}
+input {
+  max-width: 180px;
+}
+#status {
+  padding: 16px;
+  border-left: 4px solid #7be5c1;
+  background: #1c2b36;
+  margin-bottom: 20px;
+}
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  background: #080f16;
+  border-radius: 18px;
+  overflow: hidden;
+}
+#preview {
+  width: 100%;
+  height: auto;
+}
+aside {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+aside strong {
+  font-size: 38px;
+  color: #7be5c1;
+}
+aside p {
+  font-size: 14px;
+  color: #91a9b8;
+}
+.note {
+  font-size: 14px;
+  line-height: 1.7;
+}
+#xr-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+#xr-root canvas {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 700px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    display: none;
+  }
+}

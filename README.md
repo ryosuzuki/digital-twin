@@ -4,6 +4,8 @@
 
 ## どこから見る？
 
+- [quest-ondevice-yolo](implementations/quest-ondevice-yolo/README.md) — Quest 3/3S本体でYOLO。WebXRプレビュー＋Unity nativeカメラ推論。外部GPU不要。実機確認範囲は同フォルダのVERIFICATION.mdを参照。
+
 - [scan-realistic-viewer](implementations/scan-realistic-viewer/README.md) — Gaussian の実スキャンをそのまま見る（静的表示）。起動は同フォルダの [RUN.md](implementations/scan-realistic-viewer/RUN.md)。
 - [scan-spatial-ui-demo](implementations/scan-spatial-ui-demo/README.md) — 実スキャン内の空間 UI。起動は同フォルダの [RUN.md](implementations/scan-spatial-ui-demo/RUN.md)。
 - [scan-interactive-twin](implementations/scan-interactive-twin/README.md) — 部屋内の対話・操作。起動は同フォルダの [RUN.md](implementations/scan-interactive-twin/RUN.md)。
@@ -14,9 +16,9 @@
 
 ## 実装の区分と限界
 
-基本は desktop WebGL／Web サーバーでのプロトタイプです。Unity/Quest 実機に移植したという意味ではありません。各 README に元の方式、起動コマンド、検証済み範囲があります。モデル推論・3D生成アルゴリズムは [3d-generation](https://github.com/ryosuzuki/3d-generation)、追跡プラットフォームは [image-tracking](https://github.com/ryosuzuki/image-tracking) に分類。アバターと部屋の一体型デモはソース重複を承知で実用単位を保持しています。
+既存snapshotは基本的に desktop WebGL／Web サーバーでのプロトタイプです。追加のquest-ondevice-yoloはWeb/Unityの別実装です。Unity/Quest 実機に移植したという意味ではありません。各 README に元の方式、起動コマンド、検証済み範囲があります。モデル推論・3D生成アルゴリズムは [3d-generation](https://github.com/ryosuzuki/3d-generation)、追跡プラットフォームは [image-tracking](https://github.com/ryosuzuki/image-tracking) に分類。アバターと部屋の一体型デモはソース重複を承知で実用単位を保持しています。
 
-このカタログの検証はソース同一性・JS/Python構文・復元情報です。元のデモ動画は元 README のリンクを利用。新しい実機テストやAI呼び出しはしていません。
+既存snapshotの検証はソース同一性・JS/Python構文・復元情報です。元のデモ動画は元 README のリンクを利用。既存snapshotの分類整理では新しい実機テストやAI呼び出しはしていません。追加実装の検証は各フォルダを参照してください。
 
 ## 再現性
 

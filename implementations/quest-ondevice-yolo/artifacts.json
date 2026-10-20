@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-20",
+  "artifact_directory": "~/Storage/outputs/quest-ondevice-yolo/2026-10-20/",
+  "files": [
+    {
+      "name": "classroom-yolo.apk",
+      "bytes": 103521581,
+      "sha256": "327e59b98ce7e7aa75f3032fff8855263fcca1ea10763c3655d7591146bcddc0"
+    },
+    {
+      "name": "unity-project.zip",
+      "bytes": 9956683,
+      "sha256": "1cce3819a5b28273e6e184fca9a23aedce7d6883f82230246c9c17e52bd12454"
+    },
+    {
+      "name": "web-static-site.zip",
+      "bytes": 10236791,
+      "sha256": "9b1538409c2b3752ff94b4af52c3161aa3afa32c0fc1f87f6152fe92ec1b31d1"
+    },
+    {
+      "name": "web-inference-demo.mp4",
+      "bytes": 688510,
+      "sha256": "41033f7183477afdf14c6f2fd9aa39bde64771cf88b79281592b01fad760f3bb"
+    },
+    {
+      "name": "web-model-inference.json",
+      "bytes": 1597,
+      "sha256": "9dedce2335bbcc39c565cd2a653a43dc4e11e857a9baec3691d7f2024b7b5d4a"
+    },
+    {
+      "name": "web-model-inference.png",
+      "bytes": 765220,
+      "sha256": "2e72dca178bc2720826f675408a0ed72afe89f8e157523dab097d6f1089ed2b8"
+    }
+  ]
+}
