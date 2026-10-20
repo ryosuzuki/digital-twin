@@ -51,7 +51,7 @@ def text(sid,s,x,y,w,h,size=16,bold=False,color=INK,fill=None,link=None,font='Ar
 def line(sid,x1,y1,x2,y2,color=TEAL,arrow=False,dash=False):
  global seq
  seq+=1;i=f'{sid}_e{seq}';req.append({'createLine':{'objectId':i,'lineCategory':'STRAIGHT','elementProperties':{'pageObjectId':sid,'size':{'width':{'magnitude':abs(x2-x1) or .01,'unit':'PT'},'height':{'magnitude':abs(y2-y1) or .01,'unit':'PT'}},'transform':{'scaleX':1 if x2>=x1 else -1,'scaleY':1 if y2>=y1 else -1,'translateX':x1,'translateY':y1,'unit':'PT'}}}})
- p={'lineFill':{'solidFill':{'color':{'rgbColor':color},'alpha':1}},'weight':{'magnitude':2,'unit':'PT'}}
+ p={'startArrow':'NONE','endArrow':'NONE','lineFill':{'solidFill':{'color':{'rgbColor':color},'alpha':1}},'weight':{'magnitude':2,'unit':'PT'}}
  if arrow:p['endArrow']='FILL_ARROW'
  if dash:p['dashStyle']='DASH'
  req.append({'updateLineProperties':{'objectId':i,'lineProperties':p,'fields':','.join(p)}})
@@ -108,12 +108,12 @@ s=slide('geometry','A ray turns a pixel into a 3D point','Use the detection cent
 text(s,'Exposure-time\ncamera pose',110,181,135,55,16,True)
 text(s,'o',239,225,22,26,17,True,color=TEAL)
 for y in [155,283]:line(s,265,236,467,y,dash=True)
-line(s,265,236,467,218,arrow=True)
+line(s,265,236,500,227,arrow=True)
 line(s,467,155,467,283);line(s,467,155,558,172);line(s,467,283,558,300);line(s,558,172,558,300)
-text(s,'P',469,205,30,27,18,True,color=ORANGE)
+text(s,'P',503,211,30,27,18,True,color=ORANGE)
 text(s,'Measured\ndepth hit',566,204,99,53,15)
 text(s,'P = o + t · d',110,294,280,30,21,True,color=TEAL)
-text(s,'Four corner rays intersect a plane through P.\nApproximate box ≠ reconstructed 3D object.',110,334,550,39,16)
+text(s,'Camera-parallel approximation plane through P.\nFour corner rays → approximate box, not a 3D mesh.',110,334,550,39,16)
 text(s,'center ray',299,204,130,23,13,color=TEAL)
 
 s=slide('stack','What we used','A reproducible Unity project, built from a pinned Meta sample.','Source README.md, scripts/prepare-unity.py, unity/ClassroomBuild.cs. Unity6000.4.5f1, MRUK85.0.0, InferenceEngine2.6.1 OpenXR1.16.1. Meta source pinned3baac1a1a53aa00af3f639425914f14238a97f84. Camera API support scoped to Quest3/3S; physical test Quest3 only. Camera+spatial data permissions required.')
@@ -169,7 +169,8 @@ for i in range(0,len(req),90):
  G.batch(ID,req[i:i+90]);print('Applied requests',min(i+90,len(req)),len(req),flush=True)
 p=G.presentation(ID);notes=[]
 for j,r in enumerate(rows):
- notes.append({'updateSlidesPosition':{'slideObjectIds':[r['slide_id']],'insertionIndex':37+j}})
+ # Index is in the pre-removal slide list: move each new slide to the end.
+ notes.append({'updateSlidesPosition':{'slideObjectIds':[r['slide_id']],'insertionIndex':37+len(rows)}})
  s=next(s for s in p['slides'] if s['objectId']==r['slide_id']);n=s['slideProperties']['notesPage']['notesProperties']['speakerNotesObjectId']
  ne=next((e for e in s['slideProperties']['notesPage'].get('pageElements',[]) if e['objectId']==n),{})
  if ne.get('shape',{}).get('text',{}).get('textElements'):notes.append({'deleteText':{'objectId':n,'textRange':{'type':'ALL'}}})
