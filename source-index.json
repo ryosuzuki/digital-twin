@@ -47,5 +47,13 @@
     "commit": "6c28037346a9d45097652bc13cea67b4fc3eb729",
     "files": 115,
     "sourceOnly": true
+  },
+  {
+    "name": "spatial-home-lab",
+    "folder": "implementations/spatial-home-lab",
+    "kind": "original-local-integration",
+    "sourceOnly": false,
+    "privateUpstream": "Spatial Home and Lab applications; runtime assets and exact restoration config excluded",
+    "verification": "dependency-free gateway tests plus private live HTTP/source/asset identity checks; not device or physical-accuracy acceptance"
   }
 ]

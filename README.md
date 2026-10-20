@@ -4,6 +4,8 @@ A public source-classification monorepo that organizes pinned source snapshots w
 
 ## Where to start
 
+- [spatial-home-lab](implementations/spatial-home-lab/README.md) — **Our recent Home and Lab digital twins**, kept separate from the older scan snapshots: runnable local catalog, independent per-venue gateways, availability checks, and synthetic upstreams for a fresh clone. Connect your existing private Spatial services; room assets and camera configuration are not published.
+
 - [quest-ondevice-yolo](implementations/quest-ondevice-yolo/README.md) — On-device YOLO for Quest 3/3S: WebXR preview and native Unity first-person passthrough annotations. No external GPU required. The [illustrated tutorial](implementations/quest-ondevice-yolo/TUTORIAL.md) explains center raycasting, spatial placement, and detection versus tracking. See its VERIFICATION.md for accepted device behavior and limitations.
 - [scan-realistic-viewer](implementations/scan-realistic-viewer/README.md) — View an actual Gaussian scan, without dynamic behavior. See [RUN.md](implementations/scan-realistic-viewer/RUN.md).
 - [scan-spatial-ui-demo](implementations/scan-spatial-ui-demo/README.md) — Spatial UI inside a real scan. See [RUN.md](implementations/scan-spatial-ui-demo/RUN.md).

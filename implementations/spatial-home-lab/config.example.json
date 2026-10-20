@@ -1,0 +1,13 @@
+{
+  "dashboard_port": 39800,
+  "home": {
+    "upstream": "http://127.0.0.1:41001",
+    "route": "/home.html",
+    "proxy_port": 39801
+  },
+  "lab": {
+    "upstream": "http://127.0.0.1:41002",
+    "route": "/lab.html",
+    "proxy_port": 39802
+  }
+}
