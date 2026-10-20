@@ -19,7 +19,35 @@
     "audience_setting": "not made for kids",
     "source": "Same authorized 12-second classroom excerpt from the requester-provided native0.3.0 recording; observations frozen.",
     "verification_date": "2026-10-20",
-    "playback_verification": "Non-owner playback verification pending; no playback claim is made by this receipt.",
-    "scope_limit": "Historical0.3.0 frozen-label demo, not evidence of0.3.1 gated relocation or measured head-motion accuracy."
+    "playback_verification": {
+      "status": "verified",
+      "non_owner_method": "Cookie-free yt-dlp metadata and 360p playback-copy retrieval; copy fully decoded.",
+      "metadata_duration_seconds": 12,
+      "reviewed_frame_times_seconds": [
+        1,
+        6,
+        11
+      ],
+      "downloaded_resolution": "640x360 (360p)",
+      "scope": "Verified this 360p copy, not HD download/playback."
+    },
+    "scope_limit": "Historical0.3.0 frozen-label demo, not evidence of0.3.1 gated relocation or measured head-motion accuracy.",
+    "studio_processing_verification": {
+      "sd_processing_complete": true,
+      "hd_processing_complete": true,
+      "saved_details_confirmed": true,
+      "scope": "Studio completion indicators only; HD playback was not tested."
+    },
+    "slides_embed_verification": {
+      "slide_id": "quest_lab_video",
+      "source": "YOUTUBE",
+      "video_id": "x2HKa_wzCaI",
+      "actual_playback_seconds": 9.84458,
+      "reported_duration_seconds": 12.041,
+      "ready_state": 4,
+      "paused": false,
+      "playback_resolution": "640x360",
+      "error_status": "No playback error reported during the observed Slides iframe playback."
+    }
   }
 }
