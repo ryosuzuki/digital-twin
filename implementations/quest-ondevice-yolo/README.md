@@ -7,6 +7,12 @@
 - **Unity native**: MetaのPassthrough Camera APIから実カメラを取得し、Unity Inference Engineで本体GPU（GPUCompute）／CPU推論。**一人称パススルー**に、カメラ校正＋環境深度で投影した検出枠・ラベルだけを重ねます。カメラプレビューパネルは表示しません。
 - YOLO自体の出力は物体の種類と2D矩形です。Unity版は矩形の中心を実環境の深度へレイキャストし、その深さの平面へ四隅を投影します。正確な3D物体形状・永続アンカー・Digital Twinの完成を主張しません。
 
+## 図で学ぶ / Illustrated walkthrough
+
+[授業用チュートリアル](TUTORIAL.md) · [ブラウザ版HTML](tutorial/index.html) · [全体構成図](tutorial/pipeline.svg) · [中心raycast図](tutorial/center-raycast.svg)
+
+「検出した物体の中心を深度へraycastする」実装を、ソース抜粋・位置合わせの近似・検出と追跡の違い・再現手順と一緒に説明しています。
+
 ## まずどちらを使う？
 
 授業でQuestの実カメラを確実に扱う入口は**Unity native**です。WebXRパススルー背景は、JavaScriptがその画素を読めることを意味しません。Web版は`getUserMedia`の実際の許可結果を確認し、失敗は画面に表示します。未対応端末でダミーの検出を表示したり、テスト画像をライブ映像と呼んだりしません。WebXRセッション中のカメラ継続可否もブラウザ依存です。

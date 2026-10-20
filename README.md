@@ -4,7 +4,7 @@
 
 ## どこから見る？
 
-- [quest-ondevice-yolo](implementations/quest-ondevice-yolo/README.md) — Quest 3/3S本体でYOLO。WebXRプレビュー＋Unity native一人称パススルー検出。外部GPU不要。実機確認範囲は同フォルダのVERIFICATION.mdを参照。
+- [quest-ondevice-yolo](implementations/quest-ondevice-yolo/README.md) — Quest 3/3S本体でYOLO。WebXRプレビュー＋Unity native一人称パススルー検出。外部GPU不要。[図入りチュートリアル](implementations/quest-ondevice-yolo/TUTORIAL.md)で中心raycast・位置合わせ・追跡との違いを説明。実機確認範囲は同フォルダのVERIFICATION.mdを参照。
 
 - [scan-realistic-viewer](implementations/scan-realistic-viewer/README.md) — Gaussian の実スキャンをそのまま見る（静的表示）。起動は同フォルダの [RUN.md](implementations/scan-realistic-viewer/RUN.md)。
 - [scan-spatial-ui-demo](implementations/scan-spatial-ui-demo/README.md) — 実スキャン内の空間 UI。起動は同フォルダの [RUN.md](implementations/scan-spatial-ui-demo/RUN.md)。
